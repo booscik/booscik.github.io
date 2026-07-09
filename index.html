@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boosty Tools</title>
+    <title>Booscik Tools</title>
     <style>
-        /* Reset i nowoczesna baza */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +13,7 @@
         }
 
         body {
-            background-color: #0d0712; /* Głęboki, mroczny fiolet */
+            background-color: #0d0712;
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -25,7 +24,7 @@
             padding: 20px;
         }
 
-        /* --- POTĘŻNE ANIMOWANE TŁO NEONOWE --- */
+        /* Tło neonowe */
         .bg-glow {
             position: absolute;
             top: 50%;
@@ -50,20 +49,20 @@
             pointer-events: none;
         }
 
-        /* --- GLÓWNY PANEL (WPLECIONY W STRONĘ Z RAMKĄ RGB) --- */
+        /* Główny panel */
         .app-container {
             position: relative;
             z-index: 3;
-            background: rgba(15, 9, 20, 0.85);
+            background: rgba(15, 9, 20, 0.9);
             backdrop-filter: blur(10px);
             width: 100%;
             max-width: 680px;
-            border-radius: 24px; /* Mocno zaokrąglone krawędzie głównego panelu */
-            padding: 4px; /* Przestrzeń na efekt RGB */
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(0, 0, 0, 0.4); /* Subtelne, nakładające się czarne cienie */
+            border-radius: 24px;
+            padding: 4px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7); /* Leciutki, ciemny cień nadający głębi */
         }
 
-        /* Nowoczesna, zaokrąglona ramka RGB */
+        /* Zaokrąglona ramka RGB */
         .app-container::before {
             content: '';
             position: absolute;
@@ -85,7 +84,6 @@
             padding: 30px;
         }
 
-        /* Nagłówek wpleciony w interfejs */
         .app-header {
             text-align: center;
             margin-bottom: 25px;
@@ -106,7 +104,7 @@
             font-size: 0.9rem;
         }
 
-        /* Sekcja wyszukiwania (Input + Przycisk) */
+        /* Sekcja szukania */
         .search-section {
             display: flex;
             gap: 12px;
@@ -126,15 +124,14 @@
             color: #ffffff;
             padding: 14px 20px;
             font-size: 1rem;
-            border-radius: 14px; /* Zaokrąglony input */
+            border-radius: 14px;
             outline: none;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 2px 5px rgba(0, 0, 0, 0.15); /* Leciutki cień */
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 3px 6px rgba(0, 0, 0, 0.4); /* Delikatny czarny cień */
         }
 
         .search-input:focus {
             border-color: #b39ddb;
-            background: #1d1326;
             box-shadow: 0 0 10px rgba(179, 157, 219, 0.2);
         }
 
@@ -145,33 +142,33 @@
             padding: 0 28px;
             font-weight: bold;
             font-size: 0.95rem;
-            border-radius: 14px; /* Zaokrąglony przycisk szukania */
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Lekki czarny cień pod przyciskiem */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Leciutki widoczny cień dolny */
         }
 
         .btn-search:hover {
             background: #511478;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
         }
 
-        /* Karta z danymi gry */
+        /* Karta gry */
         .game-card {
             background: rgba(26, 16, 37, 0.6);
             border: 1px solid rgba(106, 27, 154, 0.2);
-            border-radius: 18px; /* Zaokrąglona karta danych */
+            border-radius: 18px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
 
         .image-preview {
             width: 100%;
             height: 250px;
             background: #0b060f;
-            border-radius: 12px; /* Zaokrąglona miniaturka */
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -179,7 +176,6 @@
             font-weight: 500;
             overflow: hidden;
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.03);
         }
 
         .image-preview img {
@@ -203,10 +199,9 @@
         .game-type {
             font-size: 0.95rem;
             color: #b39ddb;
-            font-weight: 500;
         }
 
-        /* Przycisk Pobierania skryptów */
+        /* Przycisk pobierania */
         .btn-download {
             width: 100%;
             background: #4caf50;
@@ -215,15 +210,11 @@
             padding: 15px;
             font-size: 1.05rem;
             font-weight: 700;
-            border-radius: 14px; /* Zaokrąglony przycisk akcji */
+            border-radius: 14px;
             cursor: not-allowed;
             opacity: 0.25;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
         .btn-download.active {
@@ -234,10 +225,9 @@
         .btn-download.active:hover {
             background: #43a047;
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
         }
 
-        /* Status logów */
         .status-bar {
             color: #8e82a0;
             font-size: 0.9rem;
@@ -246,12 +236,12 @@
             font-style: italic;
         }
 
-        /* --- DYNAMICZNE PODPOWIEDZI (LIVE SUGGESTIONS) --- */
+        /* Okienko podpowiedzi */
         .suggestions-box {
             position: absolute;
             background: #181021;
             border: 1px solid #4a148c;
-            border-radius: 14px; /* Zaokrąglone menu podpowiedzi */
+            border-radius: 14px;
             width: 100%;
             top: calc(100% + 8px);
             left: 0;
@@ -259,7 +249,7 @@
             display: none;
             max-height: 280px;
             overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             padding: 6px;
         }
 
@@ -274,7 +264,7 @@
         }
 
         .suggestion-item:hover {
-            background: rgba(106, 27, 154, 0.4);
+            background: rgba(106, 27, 154, 0.5);
         }
 
         .suggestion-item img {
@@ -282,7 +272,6 @@
             height: 36px;
             object-fit: cover;
             border-radius: 6px;
-            background: #0f0914;
         }
 
         .suggestion-text {
@@ -291,7 +280,6 @@
             color: #ffffff;
         }
 
-        /* Animacje */
         @keyframes borderRGB {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -309,42 +297,35 @@
     <div class="bg-glow"></div>
     <canvas class="particles" id="particleCanvas"></canvas>
 
-    <!-- GŁÓWNY PANEL APLIKACJI - OD RAZU WIDOCZNY -->
     <div class="app-container">
         <div class="app-content">
-            
-            <!-- Nagłówek strony -->
             <div class="app-header">
                 <h1>Boosty Tools</h1>
                 <p>Generator plików konfiguracyjnych i skryptów LUA</p>
             </div>
 
-            <!-- Panel Wyszukiwania -->
             <div class="search-section">
                 <div class="input-wrapper">
-                    <input type="text" class="search-input" id="entryAppid" placeholder="Wpisz nazwę gry lub Steam ID..." oninput="onKeyRelease(this)">
-                    <!-- Okno podpowiedzi w locie -->
+                    <input type="text" class="search-input" id="entryAppid" placeholder="Wpisz pełną nazwę gry (np. Counter-Strike) lub ID..." oninput="onKeyRelease(this)">
                     <div class="suggestions-box" id="suggestionsBox"></div>
                 </div>
                 <button class="btn-search" onclick="startInfoProcess()">Szukaj</button>
             </div>
 
-            <!-- Karta Podglądu Gry ze Steam -->
             <div class="game-card">
                 <div class="image-preview" id="imagePreview">
-                    Wprowadź ID gry lub wyszukaj po nazwie powyżej
+                    Wpisz nazwę gry i kliknij "Szukaj" lub wybierz z listy podpowiedzi
                 </div>
                 <div class="game-details">
                     <div class="game-title" id="lblGameName">Gra: ---</div>
                     <div class="game-type" id="lblGameType">Typ zawartości: ---</div>
                 </div>
                 <button class="btn-download" id="btnDownload" onclick="downloadLuaFiles()">
-                    📥 Pobierz spakowaną paczkę (.zip)
+                    📥 Pobierz skrypty LUA (.zip)
                 </button>
             </div>
 
-            <!-- Status działania systemu -->
-            <div class="status-bar" id="lblStatus">System gotowy do pracy.</div>
+            <div class="status-bar" id="lblStatus">System gotowy.</div>
         </div>
     </div>
 
@@ -359,7 +340,7 @@
             status.style.color = color;
         }
 
-        // Live Suggestions podczas pisania nazwy gry
+        // Live Suggestions - Poprawione bezpośrednie odpytywanie i parsowanie
         function onKeyRelease(input) {
             clearTimeout(searchTimer);
             const query = input.value.trim();
@@ -371,9 +352,11 @@
             }
 
             searchTimer = setTimeout(() => {
-                fetch(`https://cors-anywhere.herokuapp.com/https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(query)}&l=polish&cc=PL`)
+                // Stabilny endpoint Allorigins do pobierania surowego JSON bez ucinania obiektów
+                fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(query)}&l=polish&cc=PL`)}`)
                     .then(res => res.json())
-                    .then(data => {
+                    .then(wrapper => {
+                        const data = JSON.parse(wrapper.contents);
                         if (data && data.items && data.items.length > 0) {
                             updateSuggestions(data.items.slice(0, 5));
                         } else {
@@ -400,21 +383,20 @@
 
                 const imgUrl = `https://cdn.cloudflare.steamstatic.com/steam/apps/${item.id}/capsule_sm_120.jpg`;
                 div.innerHTML = `
-                    <img src="${imgUrl}" onerror="this.style.display='none'">
+                    <img src="${imgUrl}" onerror="this.style.opacity='0'">
                     <div class="suggestion-text">${item.name} (ID: ${item.id})</div>
                 `;
                 box.appendChild(div);
             });
         }
 
-        // Ukrywanie podpowiedzi po kliknięciu poza obszar szukania
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.search-section')) {
                 document.getElementById('suggestionsBox').style.display = 'none';
             }
         });
 
-        // Pobieranie danych gry
+        // Poprawiony proces szukania gry tekstowo i po ID
         function startInfoProcess() {
             const query = document.getElementById('entryAppid').value.trim();
             if (!query) return;
@@ -423,27 +405,27 @@
 
             if (!isNaN(query)) {
                 currentAppId = query;
-                setStatus(`Łączenie ze Steam API dla ID ${query}...`);
+                setStatus(`Pobieranie danych dla AppID: ${query}...`);
                 fetchSteamData(query);
             } else {
-                setStatus(`Szukanie powiązań dla frazy: "${query}"...`);
-                searchGameByName(query);
+                setStatus(`Szukanie gry: "${query}"...`);
+                
+                // Poprawiony mechanizm wyszukiwania tekstowego
+                fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(query)}&l=polish&cc=PL`)}`)
+                    .then(res => res.json())
+                    .then(wrapper => {
+                        const data = JSON.parse(wrapper.contents);
+                        if (data && data.items && data.items.length > 0) {
+                            // Łapie najlepsze trafienie z listy
+                            currentAppId = data.items[0].id;
+                            setStatus(`Znaleziono dopasowanie. Ładowanie danych...`);
+                            fetchSteamData(currentAppId);
+                        } else {
+                            setStatus("Nie znaleziono gry o tej nazwie. Spróbuj podać dokładniejszą nazwę.", "#ff3333");
+                        }
+                    })
+                    .catch(err => setStatus(`Błąd podczas wyszukiwania: ${err.message}`, "#ff3333"));
             }
-        }
-
-        function searchGameByName(name) {
-            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(name)}&l=polish&cc=PL`)}`)
-                .then(res => res.json())
-                .then(wrapper => {
-                    const data = JSON.parse(wrapper.contents);
-                    if (data && data.items && data.items.length > 0) {
-                        currentAppId = data.items[0].id;
-                        fetchSteamData(currentAppId);
-                    } else {
-                        setStatus("Nie znaleziono gry o podanej nazwie.", "#ff3333");
-                    }
-                })
-                .catch(err => setStatus(`Błąd połączenia: ${err.message}`, "#ff3333"));
         }
 
         function fetchSteamData(appid) {
@@ -460,13 +442,13 @@
                             document.getElementById('imagePreview').innerHTML = `<img src="${info.header_image}">`;
                         }
                         
-                        setStatus("Sprawdzanie dostępności skryptów na serwerze...");
+                        setStatus("Sprawdzanie dostępności plików na serwerze...");
                         checkZipExistence(appid);
                     } else {
-                        setStatus("Baza Steam nie zwróciła wyników dla podanego ID.", "#ff3333");
+                        setStatus("Brak szczegółowych informacji w bazie Steam dla tego ID.", "#ff3333");
                     }
                 })
-                .catch(err => setStatus(`Błąd synchronizacji API: ${err.message}`, "#ff3333"));
+                .catch(err => setStatus(`Błąd pobierania danych z API: ${err.message}`, "#ff3333"));
         }
 
         function checkZipExistence(appid) {
@@ -475,14 +457,14 @@
                 .then(res => res.json())
                 .then(wrapper => {
                     if(wrapper.status && wrapper.status.http_code === 404) {
-                        setStatus("Brak dedykowanych skryptów na serwerze dla tej gry.", "#ff3333");
+                        setStatus("Brak skryptów LUA dla tej gry na serwerze głównym.", "#ff3333");
                     } else {
-                        setStatus("Skrypty gotowe do pobrania!", "#4caf50");
+                        setStatus("Skrypty LUA są dostępne! Możesz pobrać paczkę.", "#4caf50");
                         document.getElementById('btnDownload').classList.add('active');
                     }
                 })
                 .catch(() => {
-                    setStatus("Brak dedykowanych skryptów lub serwer offline.", "#ff3333");
+                    setStatus("Brak skryptów LUA dla tej gry na serwerze głównym.", "#ff3333");
                 });
         }
 
@@ -490,10 +472,10 @@
             if (!document.getElementById('btnDownload').classList.contains('active')) return;
             const url = `${BASE_URL}${currentAppId}.zip`;
             window.location.href = url;
-            setStatus(`Rozpoczęto pobieranie paczki ${currentAppId}.zip`, "#4caf50");
+            setStatus(`Pobieranie paczki ${currentAppId}.zip rozpoczęte.`, "#4caf50");
         }
 
-        /* --- INTELIGENTNE CZĄSTECZKI W TLE --- */
+        /* Tło cząsteczkowe */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
