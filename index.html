@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booscik Tools</title>
+    <title>Boosty Tools</title>
     <style>
-        /* Reset i baza */
+        /* Reset i nowoczesna baza */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #0f0914; /* Głęboki fiolet z Twojego programu */
+            background-color: #0d0712; /* Głęboki, mroczny fiolet */
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -22,20 +22,21 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
+            padding: 20px;
         }
 
-        /* --- POTĘŻNE ANIMOWANE TŁO --- */
+        /* --- POTĘŻNE ANIMOWANE TŁO NEONOWE --- */
         .bg-glow {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(106, 27, 154, 0.2) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(90px);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(106, 27, 154, 0.15) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(100px);
             z-index: 1;
-            animation: pulseGlow 10s infinite alternate ease-in-out;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
             pointer-events: none;
         }
 
@@ -49,25 +50,26 @@
             pointer-events: none;
         }
 
-        /* --- INTERFEJS APLIKACJI (Z REPLICZNYM KOLOREM I RAMKĄ RGB) --- */
-        .main-window {
+        /* --- GLÓWNY PANEL (WPLECIONY W STRONĘ Z RAMKĄ RGB) --- */
+        .app-container {
             position: relative;
             z-index: 3;
-            background: #0f0914;
-            width: 720px;
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            padding: 6px; /* Przestrzeń pod imitację ramki z Canvasa */
-            transition: all 0.3s ease;
+            background: rgba(15, 9, 20, 0.85);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 680px;
+            border-radius: 24px; /* Mocno zaokrąglone krawędzie głównego panelu */
+            padding: 4px; /* Przestrzeń na efekt RGB */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(0, 0, 0, 0.4); /* Subtelne, nakładające się czarne cienie */
         }
 
-        /* Dynamiczna animacja krawędzi RGB imitująca funkcję animuj_rgb() */
-        .main-window::before {
+        /* Nowoczesna, zaokrąglona ramka RGB */
+        .app-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 8px;
-            padding: 3px; 
+            border-radius: 24px;
+            padding: 2px; 
             background: linear-gradient(45deg, #6a1b9a, #b39ddb, #4caf50, #6a1b9a);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -77,240 +79,219 @@
             pointer-events: none;
         }
 
-        /* Wewnętrzny kontener (main_frame) */
-        .main-frame {
+        .app-content {
             background: #0f0914;
-            border-radius: 6px;
-            padding: 20px;
+            border-radius: 21px;
+            padding: 30px;
         }
 
-        /* Górny pasek (Header) */
-        .header-frame {
-            background: #2d1f3d;
-            margin: -20px -20px 20px -20px;
-            padding: 12px 20px;
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Nagłówek wpleciony w interfejs */
+        .app-header {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
-        .header-title {
-            font-size: 1.1rem;
-            font-weight: bold;
+        .app-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
             letter-spacing: 1px;
-            color: #ffffff;
+            background: linear-gradient(45deg, #ffffff, #b39ddb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
         }
 
-        .btn-close {
-            color: #888888;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
+        .app-header p {
+            color: #8e82a0;
+            font-size: 0.9rem;
         }
-        .btn-close:hover { color: #ff3333; }
 
-        /* Wyszukiwarka (input_frame) */
-        .input-frame {
+        /* Sekcja wyszukiwania (Input + Przycisk) */
+        .search-section {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
             position: relative;
         }
 
-        .lbl-appid {
-            color: #b39ddb;
-            font-size: 0.9rem;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .entry-appid {
+        .input-wrapper {
             flex-grow: 1;
-            background: #2d1f3d;
-            border: 1px solid #6a1b9a;
-            color: #ffffff;
-            padding: 10px 15px;
-            font-size: 1rem;
-            border-radius: 4px;
-            outline: none;
+            position: relative;
         }
 
-        .btn-load {
+        .search-input {
+            width: 100%;
+            background: #181021;
+            border: 1px solid rgba(106, 27, 154, 0.4);
+            color: #ffffff;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border-radius: 14px; /* Zaokrąglony input */
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 2px 5px rgba(0, 0, 0, 0.15); /* Leciutki cień */
+        }
+
+        .search-input:focus {
+            border-color: #b39ddb;
+            background: #1d1326;
+            box-shadow: 0 0 10px rgba(179, 157, 219, 0.2);
+        }
+
+        .btn-search {
             background: #6a1b9a;
             color: #ffffff;
             border: none;
-            padding: 10px 25px;
+            padding: 0 28px;
             font-weight: bold;
-            border-radius: 4px;
+            font-size: 0.95rem;
+            border-radius: 14px; /* Zaokrąglony przycisk szukania */
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Lekki czarny cień pod przyciskiem */
         }
-        .btn-load:hover { background: #4a148c; }
 
-        /* Karta Informacji (info_card) */
-        .info-card {
-            background: #1a1025;
-            border: 1px solid #2d1f3d;
-            border-radius: 6px;
+        .btn-search:hover {
+            background: #511478;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Karta z danymi gry */
+        .game-card {
+            background: rgba(26, 16, 37, 0.6);
+            border: 1px solid rgba(106, 27, 154, 0.2);
+            border-radius: 18px; /* Zaokrąglona karta danych */
             padding: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .info-card-title {
-            color: #b39ddb;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: -30px;
-            background: #0f0914;
-            display: inline-block;
-            padding: 0 8px;
-            margin-bottom: 15px;
-        }
-
-        .img-label {
+        .image-preview {
             width: 100%;
-            height: 270px;
-            background: #0f0914;
-            border-radius: 4px;
+            height: 250px;
+            background: #0b060f;
+            border-radius: 12px; /* Zaokrąglona miniaturka */
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #8e82a0;
-            font-weight: bold;
+            color: #635875;
+            font-weight: 500;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.03);
         }
 
-        .img-label img {
+        .image-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .lbl-game-name {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .game-details {
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            font-weight: 700;
             color: #ffffff;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
-        .lbl-game-type {
-            font-size: 1rem;
+        .game-type {
+            font-size: 0.95rem;
             color: #b39ddb;
-            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        /* Przycisk Pobierania (btn_download) */
+        /* Przycisk Pobierania skryptów */
         .btn-download {
             width: 100%;
             background: #4caf50;
             color: #ffffff;
             border: none;
-            padding: 12px;
+            padding: 15px;
             font-size: 1.05rem;
-            font-weight: bold;
-            border-radius: 4px;
+            font-weight: 700;
+            border-radius: 14px; /* Zaokrąglony przycisk akcji */
             cursor: not-allowed;
-            opacity: 0.4;
-            transition: all 0.2s;
+            opacity: 0.25;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
+
         .btn-download.active {
             cursor: pointer;
             opacity: 1;
         }
-        .btn-download.active:hover { background: #388e3c; }
 
-        /* Status działania (lbl_status) */
-        .lbl-status {
-            color: #8e82a0;
-            font-size: 0.9rem;
-            font-style: italic;
-            text-align: center;
-            min-height: 20px;
+        .btn-download.active:hover {
+            background: #43a047;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
 
-        /* --- LIVE SUGGESTIONS WINDOW --- */
-        .suggestion-window {
+        /* Status logów */
+        .status-bar {
+            color: #8e82a0;
+            font-size: 0.9rem;
+            text-align: center;
+            min-height: 22px;
+            font-style: italic;
+        }
+
+        /* --- DYNAMICZNE PODPOWIEDZI (LIVE SUGGESTIONS) --- */
+        .suggestions-box {
             position: absolute;
-            background: #1a1025;
-            border: 1px solid #6a1b9a;
-            border-radius: 4px;
+            background: #181021;
+            border: 1px solid #4a148c;
+            border-radius: 14px; /* Zaokrąglone menu podpowiedzi */
             width: 100%;
-            top: 100%;
+            top: calc(100% + 8px);
             left: 0;
             z-index: 10;
             display: none;
-            max-height: 300px;
+            max-height: 280px;
             overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            padding: 6px;
         }
 
         .suggestion-item {
             display: flex;
             align-items: center;
-            padding: 8px 12px;
+            padding: 10px 12px;
             cursor: pointer;
-            transition: background 0.2s;
+            border-radius: 10px;
+            transition: background 0.2s ease;
             gap: 15px;
         }
 
         .suggestion-item:hover {
-            background: #6a1b9a;
+            background: rgba(106, 27, 154, 0.4);
         }
 
         .suggestion-item img {
-            width: 85px;
-            height: 40px;
+            width: 76px;
+            height: 36px;
             object-fit: cover;
-            border-radius: 2px;
+            border-radius: 6px;
             background: #0f0914;
         }
 
         .suggestion-text {
             font-size: 0.9rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #ffffff;
         }
 
-        /* Sekcja powitalna ("Strona główna" przed kliknięciem generatora) */
-        .welcome-screen {
-            text-align: center;
-            z-index: 3;
-            max-width: 500px;
-        }
-        .welcome-screen h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #b39ddb, #ffffff, #6a1b9a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-        .btn-launcher {
-            background: #6a1b9a;
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(106, 27, 154, 0.4);
-            transition: all 0.3s;
-        }
-        .btn-launcher:hover {
-            background: #4a148c;
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(106, 27, 154, 0.7);
-        }
-
-        /* Ukrywanie elementów interfejsu */
-        .hidden { display: none !important; }
-
+        /* Animacje */
         @keyframes borderRGB {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -318,54 +299,52 @@
         }
 
         @keyframes pulseGlow {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
         }
     </style>
-    <!-- Biblioteka JSZip do tworzenia archiwum ZIP w przeglądarce -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 
     <div class="bg-glow"></div>
     <canvas class="particles" id="particleCanvas"></canvas>
 
-    <!-- 1. EKRAN STARTOWY (Z PRZYCISKIEM GENERATORA) -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <h1>Booscik Tools</h1>
-        <button class="btn-launcher" onclick="openGenerator()">LAUNCH GENERATOR</button>
-    </div>
-
-    <!-- 2. OKNO PROGRAMU (UKRYTE NA START) -->
-    <div class="main-window hidden" id="mainWindow">
-        <div class="main-frame">
-            <!-- Header -->
-            <div class="header-frame">
-                <div class="header-title">BOOSCIK LUA TOOL</div>
-                <div class="btn-close" onclick="closeGenerator()">✖</div>
+    <!-- GŁÓWNY PANEL APLIKACJI - OD RAZU WIDOCZNY -->
+    <div class="app-container">
+        <div class="app-content">
+            
+            <!-- Nagłówek strony -->
+            <div class="app-header">
+                <h1>Boosty Tools</h1>
+                <p>Generator plików konfiguracyjnych i skryptów LUA</p>
             </div>
 
-            <!-- Input / Szukaj -->
-            <div class="input-frame">
-                <div class="lbl-appid">SZUKAJ GRY:</div>
-                <input type="text" class="entry-appid" id="entryAppid" placeholder="Wpisz nazwę gry lub ID..." oninput="onKeyRelease(this)">
-                <button class="btn-load" onclick="startInfoProcess()">SZUKAJ</button>
-                
-                <!-- Podpowiedzi Live -->
-                <div class="suggestion-window" id="suggestionWindow"></div>
+            <!-- Panel Wyszukiwania -->
+            <div class="search-section">
+                <div class="input-wrapper">
+                    <input type="text" class="search-input" id="entryAppid" placeholder="Wpisz nazwę gry lub Steam ID..." oninput="onKeyRelease(this)">
+                    <!-- Okno podpowiedzi w locie -->
+                    <div class="suggestions-box" id="suggestionsBox"></div>
+                </div>
+                <button class="btn-search" onclick="startInfoProcess()">Szukaj</button>
             </div>
 
-            <!-- Karta danych ze Steam -->
-            <div class="info-card">
-                <div class="info-card-title">Dane z platformy Steam</div>
-                <div class="img-label" id="imgLabel">[ Brak miniaturki ]</div>
-                <div class="lbl-game-name" id="lblGameName">Nazwa: ---</div>
-                <div class="lbl-game-type" id="lblGameType">Typ: ---</div>
-                <button class="btn-download" id="btnDownload" onclick="downloadLuaFiles()">📥 POBIERZ PLIKI LUA</button>
+            <!-- Karta Podglądu Gry ze Steam -->
+            <div class="game-card">
+                <div class="image-preview" id="imagePreview">
+                    Wprowadź ID gry lub wyszukaj po nazwie powyżej
+                </div>
+                <div class="game-details">
+                    <div class="game-title" id="lblGameName">Gra: ---</div>
+                    <div class="game-type" id="lblGameType">Typ zawartości: ---</div>
+                </div>
+                <button class="btn-download" id="btnDownload" onclick="downloadLuaFiles()">
+                    📥 Pobierz spakowaną paczkę (.zip)
+                </button>
             </div>
 
-            <!-- Status Systemowy -->
-            <div class="lbl-status" id="lblStatus"></div>
+            <!-- Status działania systemu -->
+            <div class="status-bar" id="lblStatus">System gotowy do pracy.</div>
         </div>
     </div>
 
@@ -374,43 +353,20 @@
         let currentAppId = null;
         let searchTimer = null;
 
-        // Przełączanie ekranów
-        function openGenerator() {
-            document.getElementById('welcomeScreen').classList.add('hidden');
-            document.getElementById('mainWindow').classList.remove('hidden');
-        }
-
-        function closeGenerator() {
-            document.getElementById('mainWindow').classList.add('hidden');
-            document.getElementById('welcomeScreen').classList.remove('hidden');
-            resetForm();
-        }
-
-        function setStatus(text, color = "#b39ddb") {
+        function setStatus(text, color = "#8e82a0") {
             const status = document.getElementById('lblStatus');
             status.innerText = text;
             status.style.color = color;
         }
 
-        function resetForm() {
-            document.getElementById('entryAppid').value = '';
-            document.getElementById('imgLabel').innerHTML = '[ Brak miniaturki ]';
-            document.getElementById('lblGameName').innerText = 'Nazwa: ---';
-            document.getElementById('lblGameType').innerText = 'Typ: ---';
-            const btn = document.getElementById('btnDownload');
-            btn.classList.remove('active');
-            setStatus('');
-            currentAppId = null;
-        }
-
-        // Obsługa Live Suggestions (Wyszukiwanie w locie)
+        // Live Suggestions podczas pisania nazwy gry
         function onKeyRelease(input) {
             clearTimeout(searchTimer);
             const query = input.value.trim();
-            const suggWindow = document.getElementById('suggestionWindow');
+            const box = document.getElementById('suggestionsBox');
 
             if (query.length < 2 || !isNaN(query)) {
-                suggWindow.style.display = 'none';
+                box.style.display = 'none';
                 return;
             }
 
@@ -421,26 +377,24 @@
                         if (data && data.items && data.items.length > 0) {
                             updateSuggestions(data.items.slice(0, 5));
                         } else {
-                            suggWindow.style.display = 'none';
+                            box.style.display = 'none';
                         }
                     })
-                    .catch(() => {
-                        // Jeśli CORS proxy jest zablokowane, pobieramy standardowo przez główny przycisk Szukaj
-                    });
+                    .catch(() => {});
             }, 300);
         }
 
         function updateSuggestions(items) {
-            const suggWindow = document.getElementById('suggestionWindow');
-            suggWindow.innerHTML = '';
-            suggWindow.style.display = 'block';
+            const box = document.getElementById('suggestionsBox');
+            box.innerHTML = '';
+            box.style.display = 'block';
 
             items.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'suggestion-item';
                 div.onclick = () => {
                     document.getElementById('entryAppid').value = item.id;
-                    suggWindow.style.display = 'none';
+                    box.style.display = 'none';
                     startInfoProcess();
                 };
 
@@ -449,54 +403,47 @@
                     <img src="${imgUrl}" onerror="this.style.display='none'">
                     <div class="suggestion-text">${item.name} (ID: ${item.id})</div>
                 `;
-                suggWindow.appendChild(div);
+                box.appendChild(div);
             });
         }
 
-        // Ukrywanie podpowiedzi przy kliknięciu obok
+        // Ukrywanie podpowiedzi po kliknięciu poza obszar szukania
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.input-frame')) {
-                document.getElementById('suggestionWindow').style.display = 'none';
+            if (!e.target.closest('.search-section')) {
+                document.getElementById('suggestionsBox').style.display = 'none';
             }
         });
 
-        // Szukanie gry i pobieranie danych ze Steam
+        // Pobieranie danych gry
         function startInfoProcess() {
             const query = document.getElementById('entryAppid').value.trim();
-            if (!query) {
-                alert("Wprowadź nazwę gry lub poprawne cyfrowe ID!");
-                return;
-            }
+            if (!query) return;
 
             document.getElementById('btnDownload').classList.remove('active');
 
             if (!isNaN(query)) {
                 currentAppId = query;
-                setStatus(`Odpytywanie API Steam dla ID ${query}...`);
+                setStatus(`Łączenie ze Steam API dla ID ${query}...`);
                 fetchSteamData(query);
             } else {
-                setStatus(`Szukanie AppID dla nazwy: '${query}'...`);
+                setStatus(`Szukanie powiązań dla frazy: "${query}"...`);
                 searchGameByName(query);
             }
         }
 
         function searchGameByName(name) {
-            // Uwaga: Bezpośrednie zapytania do Steam z poziomu przeglądarki mogą wymagać CORS. 
-            // Jeśli Steam blokuje zapytanie, używamy bezpiecznego fallbacku na bezpośrednie ID lub proxy.
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(name)}&l=polish&cc=PL`)}`)
                 .then(res => res.json())
                 .then(wrapper => {
                     const data = JSON.parse(wrapper.contents);
                     if (data && data.items && data.items.length > 0) {
-                        const bestMatch = data.items[0];
-                        currentAppId = bestMatch.id;
-                        setStatus(`Znaleziono ID: ${currentAppId}. Ładowanie danych...`);
+                        currentAppId = data.items[0].id;
                         fetchSteamData(currentAppId);
                     } else {
-                        setStatus("Nie znaleziono żadnej gry o podanej nazwie.", "#ff3333");
+                        setStatus("Nie znaleziono gry o podanej nazwie.", "#ff3333");
                     }
                 })
-                .catch(err => setStatus(`Błąd wyszukiwania: ${err.message}`, "#ff3333"));
+                .catch(err => setStatus(`Błąd połączenia: ${err.message}`, "#ff3333"));
         }
 
         function fetchSteamData(appid) {
@@ -505,74 +452,48 @@
                 .then(wrapper => {
                     const data = JSON.parse(wrapper.contents);
                     if (data && data[appid] && data[appid].success) {
-                        const appInfo = data[appid].data;
-                        document.getElementById('lblGameName').innerText = `Nazwa: ${appInfo.name}`;
-                        document.getElementById('lblGameType').innerText = `Typ: ${appInfo.type.toUpperCase()}`;
+                        const info = data[appid].data;
+                        document.getElementById('lblGameName').innerText = `Gra: ${info.name}`;
+                        document.getElementById('lblGameType').innerText = `Typ zawartości: ${info.type.toUpperCase()}`;
                         
-                        if (appInfo.header_image) {
-                            document.getElementById('imgLabel').innerHTML = `<img src="${appInfo.header_image}">`;
-                        } else {
-                            document.getElementById('imgLabel').innerText = '[ Brak zdjęcia ]';
+                        if (info.header_image) {
+                            document.getElementById('imagePreview').innerHTML = `<img src="${info.header_image}">`;
                         }
-
-                        setStatus("Pobrano dane ze Steam. Sprawdzanie serwera pod kątem paczki...");
+                        
+                        setStatus("Sprawdzanie dostępności skryptów na serwerze...");
                         checkZipExistence(appid);
                     } else {
-                        setStatus("Steam API: Brak danych o tym ID.", "#ff3333");
+                        setStatus("Baza Steam nie zwróciła wyników dla podanego ID.", "#ff3333");
                     }
                 })
-                .catch(err => setStatus(`Błąd API Steam: ${err.message}`, "#ff3333"));
+                .catch(err => setStatus(`Błąd synchronizacji API: ${err.message}`, "#ff3333"));
         }
 
-        // Sprawdzanie dostępności pliku .zip na Twoim serwerze
         function checkZipExistence(appid) {
             const url = `${BASE_URL}${appid}.zip`;
-            
-            // Ponieważ HEAD może zgłaszać błędy CORS na serwerze zewnętrznym, robimy bezpieczny fetch z modelem no-cors lub allorigins
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
                 .then(res => res.json())
                 .then(wrapper => {
-                    // Sprawdzamy czy wrapper nie zwrócił błędu 404 w zawartości
                     if(wrapper.status && wrapper.status.http_code === 404) {
-                        setStatus("Brak dostępnych skryptów LUA dla tej gry na serwerze.", "#ff3333");
-                        document.getElementById('btnDownload').classList.remove('active');
+                        setStatus("Brak dedykowanych skryptów na serwerze dla tej gry.", "#ff3333");
                     } else {
-                        setStatus("Paczka jest dostępna na serwerze! Możesz pobrać pliki.", "#4caf50");
+                        setStatus("Skrypty gotowe do pobrania!", "#4caf50");
                         document.getElementById('btnDownload').classList.add('active');
                     }
                 })
                 .catch(() => {
-                    setStatus("Brak dostępnych skryptów LUA dla tej gry na serwerze lub problem z połączeniem.", "#ff3333");
+                    setStatus("Brak dedykowanych skryptów lub serwer offline.", "#ff3333");
                 });
         }
 
-        // Pobieranie i automatyczne wypakowywanie / pobieranie skryptów LUA
         function downloadLuaFiles() {
             if (!document.getElementById('btnDownload').classList.contains('active')) return;
-
-            setStatus("Pobieranie archiwum ZIP ze skryptami...");
             const url = `${BASE_URL}${currentAppId}.zip`;
-
-            // Pobieramy plik binarny ZIP przez proxy
-            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-                .then(res => res.json())
-                .then(wrapper => {
-                    // Konwertujemy zawartość tekstową bazy allorigins z powrotem na obiekt binarny (jeśli proxy podaje string)
-                    // Dla czystego pobierania najlepiej użyć bezpośredniego linku, przeglądarka sama pobierze plik ZIP
-                    setStatus("Pobieranie rozpoczęte...", "#4caf50");
-                    
-                    // W przeglądarce najwygodniej dla użytkownika jest po prostu ściągnąć spakowaną paczkę ZIP bezpośrednio na dysk:
-                    const win = window.open(url, '_blank');
-                    setStatus(`Paczka ZIP dla ID ${currentAppId} została pobrana do Twojego folderu Pobrane!`, "#4caf50");
-                })
-                .catch(err => {
-                    // Fallback: jeśli proxy zawiedzie, uderzamy bezpośrednio linkiem do pobrania
-                    window.location.href = url;
-                    setStatus(`Rozpoczęto bezpośrednie pobieranie pliku ${currentAppId}.zip`, "#4caf50");
-                });
+            window.location.href = url;
+            setStatus(`Rozpoczęto pobieranie paczki ${currentAppId}.zip`, "#4caf50");
         }
 
-        /* --- ANIMOWANE CZĄSTECZKI W TLE --- */
+        /* --- INTELIGENTNE CZĄSTECZKI W TLE --- */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth;
@@ -583,36 +504,29 @@
             height = canvas.height = window.innerHeight;
         });
 
-        const numParticles = 40;
         const particles = [];
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * -0.3 - 0.1;
-                this.color = Math.random() < 0.7 ? `rgba(179, 157, 219, ${Math.random() * 0.3 + 0.1})` : `rgba(76, 175, 80, ${Math.random() * 0.2 + 0.05})`;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.y < 0) this.y = height;
-                if (this.x < 0 || this.x > width) this.x = Math.random() * width;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                r: Math.random() * 2 + 0.5,
+                sx: Math.random() * 0.4 - 0.2,
+                sy: Math.random() * -0.3 - 0.1,
+                c: Math.random() < 0.7 ? `rgba(179, 157, 219, ${Math.random() * 0.25 + 0.05})` : `rgba(76, 175, 80, ${Math.random() * 0.15 + 0.05})`
+            });
         }
 
-        for (let i = 0; i < numParticles; i++) particles.push(new Particle());
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            particles.forEach(p => {
+                p.x += p.sx; p.y += p.sy;
+                if (p.y < 0) p.y = height;
+                if (p.x < 0 || p.x > width) p.x = Math.random() * width;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.c;
+                ctx.fill();
+            });
             requestAnimationFrame(animate);
         }
         animate();
