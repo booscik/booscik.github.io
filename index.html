@@ -27,7 +27,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  padding-bottom: 80px;
 }
 
 #galaxy-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
@@ -50,7 +49,7 @@ body {
 
 header {
   position: relative; z-index: 10; text-align: center;
-  padding: 2.5rem 1.5rem 1rem;
+  padding: 3rem 1.5rem 1rem;
 }
 
 .logo {
@@ -68,58 +67,23 @@ header {
   color: var(--text-dim);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 #shop-date {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--accent-2);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   letter-spacing: 0.08em;
 }
 
-/* PULA V-DOLCÓW WIZUALNIE */
-.vbucks-pool-container {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: rgba(12, 16, 36, 0.85);
-  border: 1px solid rgba(0, 212, 255, 0.35);
-  padding: 0.5rem 1.1rem;
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
-  margin-bottom: 1rem;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
-}
-
-.vbucks-icon { width: 22px; height: 22px; object-fit: contain; }
-
-.vbucks-amount {
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: #fff;
-  letter-spacing: 0.04em;
-}
-
-.vbucks-info-btn {
-  display: inline-flex;
-  align-items: center;
+.controls {
+  display: flex;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--accent-2);
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s, transform 0.2s;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
-
-.vbucks-info-btn:hover { background: var(--accent-2); color: #000; transform: scale(1.1); }
-
-.controls { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; }
 
 .toggle-group {
   display: inline-flex;
@@ -128,17 +92,29 @@ header {
   border: 1px solid rgba(123, 92, 255, 0.25);
   backdrop-filter: blur(12px);
   padding: 4px;
+  gap: 2px;
 }
 
 .toggle {
-  background: transparent; border: none; color: var(--text-dim);
-  font-weight: 700; font-size: 0.78rem; padding: 0.4rem 0.9rem;
-  border-radius: 999px; cursor: pointer; transition: all 0.2s;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
 }
+
+.toggle:hover { color: var(--text); }
 
 .toggle.active {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff; box-shadow: 0 4px 16px rgba(123, 92, 255, 0.45);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(123, 92, 255, 0.45);
 }
 
 main {
@@ -149,31 +125,57 @@ main {
 
 #top-bar {
   display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 1rem; padding: 0.9rem 1.25rem;
-  border-radius: var(--radius); background: var(--bg-card);
-  border: 1px solid rgba(123, 92, 255, 0.2); backdrop-filter: blur(14px);
-  margin-bottom: 1.75rem; font-size: 0.85rem;
+  flex-wrap: wrap; gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 1px solid rgba(123, 92, 255, 0.2);
+  backdrop-filter: blur(14px);
+  margin-bottom: 1.75rem;
+  font-size: 0.85rem;
 }
 
 #countdown-wrap { display: flex; align-items: center; gap: 0.6rem; }
+
 #countdown {
   font-size: 1.3rem; font-weight: 800;
+  font-variant-numeric: tabular-nums;
   background: linear-gradient(135deg, var(--accent-2), var(--accent));
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
+  min-width: 6ch;
 }
-#countdown-label { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; }
+
+#countdown-label {
+  color: var(--text-dim); font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
 
 .status-left { display: flex; align-items: center; gap: 0.6rem; flex: 1; min-width: 200px; }
-.dot { width: 9px; height: 9px; border-radius: 50%; background: #00e676; box-shadow: 0 0 10px #00e676; }
-.dot.loading { background: var(--gold); }
-.dot.error { background: #ff5252; }
+
+.dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #00e676; box-shadow: 0 0 10px #00e676;
+  animation: dotPulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.dot.error { background: #ff5252; box-shadow: 0 0 10px #ff5252; }
+.dot.loading { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+.dot.changed { background: var(--accent-3); box-shadow: 0 0 14px var(--accent-3); }
+
+@keyframes dotPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 #refresh-btn {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  border: none; color: #fff; font-weight: 600; padding: 0.5rem 1.2rem;
-  border-radius: 999px; cursor: pointer; font-size: 0.82rem;
+  border: none; color: #fff; font-weight: 600;
+  padding: 0.5rem 1.2rem; border-radius: 999px;
+  cursor: pointer; font-size: 0.82rem; letter-spacing: 0.04em;
+  font-family: inherit;
 }
+
+#refresh-btn:hover { box-shadow: 0 6px 24px rgba(123, 92, 255, 0.45); }
+#refresh-btn:disabled { opacity: 0.5; cursor: wait; }
 
 #shop-grid {
   display: grid;
@@ -181,128 +183,372 @@ main {
   gap: 1.25rem;
 }
 
-/* KARTY */
 .card {
-  position: relative; border-radius: var(--radius); overflow: hidden;
-  background: var(--bg-card); border: 1px solid rgba(123, 92, 255, 0.18);
-  backdrop-filter: blur(12px); transition: transform 0.35s, border-color 0.35s;
+  position: relative; border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid rgba(123, 92, 255, 0.18);
+  backdrop-filter: blur(12px);
+  transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+  animation: cardIn 0.6s ease both;
 }
 
-.card.selected {
-  border-color: var(--accent-2);
-  box-shadow: 0 0 25px rgba(0, 212, 255, 0.35);
+.card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 20px 60px rgba(123, 92, 255, 0.25);
+  border-color: rgba(0, 212, 255, 0.4);
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .card-img-wrap {
-  position: relative; aspect-ratio: 1 / 1; overflow: hidden;
+  position: relative; aspect-ratio: 1 / 1;
+  overflow: hidden;
   background: linear-gradient(135deg, #0d1230, #1a1040);
 }
 
-.card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.card-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.card:hover .card-img-wrap img { transform: scale(1.08); }
 
 .card-rarity {
-  position: absolute; top: 10px; left: 10px; padding: 0.25rem 0.7rem;
-  border-radius: 999px; font-size: 0.68rem; font-weight: 700;
-  background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.15);
+  position: absolute; top: 10px; left: 10px;
+  padding: 0.25rem 0.7rem; border-radius: 999px;
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
-.card-vbucks-tag {
-  position: absolute; top: 10px; right: 10px; padding: 0.25rem 0.6rem;
-  border-radius: 8px; font-size: 0.75rem; font-weight: 800;
-  background: rgba(0,0,0,0.7); color: #fff; display: flex; align-items: center; gap: 4px;
-}
-
-.card-body { padding: 1rem 1.1rem; }
-.card-name { font-size: 0.95rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-type { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.8rem; }
-
-.card-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.price-pln {
-  font-size: 1.25rem; font-weight: 800;
-  background: linear-gradient(135deg, var(--gold), #ffb347);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-
-.select-btn {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  border: none; color: #fff; font-weight: 700; font-size: 0.78rem;
-  padding: 0.55rem 0.9rem; border-radius: 10px; cursor: pointer;
-  transition: all 0.2s;
-}
-
-.select-btn.active {
+.card-discount-tag {
+  position: absolute; top: 10px; right: 10px;
+  padding: 0.3rem 0.65rem; border-radius: 10px;
+  font-size: 0.72rem; font-weight: 800;
   background: linear-gradient(135deg, #ff4ecd, #ff6b6b);
+  color: #fff;
 }
 
-.select-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.card-body { padding: 1rem 1.1rem 1.15rem; }
 
-/* PASEK KOSZYKA NA DOLE */
-#cart-bar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
-  background: rgba(12, 14, 32, 0.95); backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(0, 212, 255, 0.3);
-  padding: 0.8rem 1.5rem; display: flex; justify-content: space-between;
-  align-items: center; transform: translateY(100%); transition: transform 0.3s ease;
+.card-name {
+  font-size: 0.95rem; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 0.35rem;
 }
 
-#cart-bar.visible { transform: translateY(0); }
+.card-type {
+  font-size: 0.72rem; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 0.85rem;
+}
 
-.cart-info { display: flex; align-items: center; gap: 1.5rem; }
-.cart-title { font-weight: 800; font-size: 0.95rem; color: #fff; }
-.cart-details { font-size: 0.85rem; color: var(--text-dim); }
-.cart-details strong { color: var(--gold); }
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
 
-.cart-buy-btn {
+.price-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.1;
+}
+
+.price-old {
+  position: relative;
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #c7c3d8;
+  opacity: 0.9;
+  align-self: flex-start;
+}
+
+.price-old::after {
+  content: '';
+  position: absolute;
+  left: -1px; right: -1px;
+  top: 52%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,107,107,0.85), rgba(255,78,205,0.85));
+  pointer-events: none;
+  border-radius: 1px;
+}
+
+.price-pln {
+  font-size: 1.35rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--gold), #ffb347);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+.buy-btn {
   background: linear-gradient(135deg, var(--discord), #7289da);
-  border: none; color: #fff; font-weight: 800; padding: 0.65rem 1.4rem;
-  border-radius: 12px; cursor: pointer; font-size: 0.88rem;
-  box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  flex-shrink: 0;
 }
 
-/* MODALE */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 1000;
-  background: rgba(3, 5, 15, 0.8); backdrop-filter: blur(10px);
-  align-items: center; justify-content: center; padding: 1rem;
+.buy-btn:hover { transform: translateY(-2px); }
+
+.skeleton {
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, rgba(30,35,70,0.6) 25%, rgba(50,55,100,0.6) 50%, rgba(30,35,70,0.6) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  aspect-ratio: 1 / 1.35;
 }
-.modal-overlay.open { display: flex; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+#error-box {
+  display: none; padding: 1.5rem 1.75rem;
+  border-radius: var(--radius);
+  background: rgba(255, 82, 82, 0.08);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  margin-bottom: 2rem;
+}
+
+#error-box.visible { display: block; }
+#error-box h3 { color: #ff8a8a; margin-bottom: 0.75rem; font-size: 1rem; }
+
+#error-detail {
+  font-family: monospace;
+  font-size: 0.82rem;
+  color: #ffb3b3;
+  background: rgba(0,0,0,0.35);
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+footer {
+  position: relative; z-index: 10; text-align: center;
+  padding: 2rem 1.5rem 3rem;
+  font-size: 0.78rem; color: var(--text-dim);
+  border-top: 1px solid rgba(123, 92, 255, 0.12);
+  margin-top: 3rem;
+}
+
+/* ── MODAL ── */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(3, 5, 15, 0.8);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#modal.open { display: flex; }
 
 .modal-box {
-  position: relative; width: 100%; max-width: 440px;
+  position: relative;
+  width: 100%;
+  max-width: 420px;
   background: linear-gradient(160deg, rgba(20, 22, 45, 0.95), rgba(12, 14, 32, 0.98));
-  border: 1px solid rgba(123, 92, 255, 0.35); border-radius: 20px;
-  padding: 2rem 1.75rem; text-align: center;
+  border: 1px solid rgba(123, 92, 255, 0.35);
+  border-radius: 20px;
+  padding: 2rem 1.75rem 1.75rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(123, 92, 255, 0.25);
+  animation: popIn 0.35s ease;
+  text-align: center;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .modal-close {
-  position: absolute; top: 12px; right: 14px; width: 32px; height: 32px;
-  border-radius: 50%; background: rgba(255,255,255,0.06); border: none;
-  color: var(--text-dim); font-size: 1.4rem; cursor: pointer;
+  position: absolute;
+  top: 12px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4rem;
+  cursor: pointer;
+  font-family: inherit;
 }
+
+.modal-close:hover { background: rgba(255, 82, 82, 0.2); color: #ff8a8a; }
 
 .modal-title {
-  font-size: 1.15rem; font-weight: 800; margin-bottom: 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
   background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.modal-sub { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.2rem; }
-
-.cart-summary-list {
-  background: rgba(0,0,0,0.3); border-radius: 12px; padding: 0.8rem;
-  margin-bottom: 1.2rem; text-align: left; max-height: 150px; overflow-y: auto;
-  font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.08);
+.modal-sub {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
 }
-.cart-summary-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+.discord-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(88, 101, 242, 0.18), rgba(88, 101, 242, 0.08));
+  border: 1px solid rgba(88, 101, 242, 0.4);
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.discord-avatar-wrap {
+  position: relative;
+  width: 58px; height: 58px;
+  flex-shrink: 0;
+}
+
+.discord-avatar {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+}
+
+.discord-status-dot {
+  position: absolute;
+  bottom: 2px; right: 2px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #747f8d;
+  border: 3px solid #0c0e20;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  transition: background 0.3s;
+}
+
+.discord-status-dot.online { background: #23a55a; box-shadow: 0 0 8px #23a55a; }
+.discord-status-dot.idle { background: #f0b232; box-shadow: 0 0 8px #f0b232; }
+.discord-status-dot.dnd { background: #f23f43; box-shadow: 0 0 8px #f23f43; }
+.discord-status-dot.offline { background: #80848e; }
+
+.discord-meta { flex: 1; min-width: 0; }
+
+.discord-display {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.discord-handle {
+  font-size: 0.82rem;
+  color: #b8b4d0;
+  font-family: monospace;
+}
+
+.discord-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
 
 .modal-btn {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  width: 100%; padding: 0.75rem; border-radius: 12px; font-weight: 700;
-  cursor: pointer; border: none; text-decoration: none; margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
   font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  font-family: inherit;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
 }
-.modal-btn.primary { background: linear-gradient(135deg, var(--discord), #7289da); color: #fff; }
-.modal-btn.secondary { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.12); }
+
+.modal-btn.primary {
+  background: linear-gradient(135deg, var(--discord), #7289da);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(88, 101, 242, 0.4);
+}
+
+.modal-btn.primary:hover { transform: translateY(-2px); }
+
+.modal-btn.secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.modal-btn.secondary:hover { background: rgba(255, 255, 255, 0.12); }
+
+.modal-btn.copied {
+  background: linear-gradient(135deg, #23a55a, #1e8f4d);
+  color: #fff;
+}
+
+.modal-hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  header { padding: 2.5rem 1rem 1rem; }
+  #shop-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.9rem; }
+  .card-body { padding: 0.8rem 0.85rem 1rem; }
+  .price-pln { font-size: 1.05rem; }
+  .price-old { font-size: 0.76rem; }
+  #countdown { font-size: 1.1rem; }
+  .buy-btn { font-size: 0.68rem; padding: 0.5rem 0.75rem; }
+}
 </style>
 </head>
 <body>
@@ -312,15 +558,8 @@ main {
 
 <header>
   <div class="logo">BOOSCIK FNSHOP</div>
-  <p class="subtitle" id="subtitle">Dzisiejszy sklep · Wybierz przedmioty</p>
+  <p class="subtitle" id="subtitle">Dzisiejszy sklep · 55% wartości</p>
   <p id="shop-date">—</p>
-
-  <!-- PULA V-DOLCÓW -->
-  <div class="vbucks-pool-container">
-    <img src="https://fortnite-api.com/images/vbuck.png" alt="V-Bucks" class="vbucks-icon">
-    <span class="vbucks-amount" id="vbucks-pool-val">Ładowanie...</span>
-    <button class="vbucks-info-btn" id="vbucks-info-btn">i</button>
-  </div>
 
   <div class="controls">
     <div class="toggle-group">
@@ -343,250 +582,613 @@ main {
     <button id="refresh-btn">Odśwież</button>
   </div>
 
+  <div id="error-box">
+    <h3 id="error-title">Błąd</h3>
+    <div id="error-detail"></div>
+  </div>
+
   <div id="shop-grid"></div>
 </main>
 
-<!-- DOLNY PASEK KOSZYKA -->
-<div id="cart-bar">
-  <div class="cart-info">
-    <div class="cart-title">Wybrano przedmiotów: <span id="cart-count">0</span></div>
-    <div class="cart-details">
-      Suma V-Dolców: <strong id="cart-vbucks">0 VB</strong> | Do zapłaty: <strong id="cart-pln">0 zł</strong>
+<footer>
+  <span id="footer-text">Ceny = 55% wartości · zaokrąglone w PLN</span><br>
+  <span style="opacity:0.5">fortnite-api.com/v2/shop</span>
+</footer>
+
+<div id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close-btn">×</button>
+    <div class="modal-title" id="modal-title">Kup przedmiot</div>
+    <div class="modal-sub" id="modal-sub">Napisz do mnie na Discordzie</div>
+
+    <div class="discord-card">
+      <div class="discord-avatar-wrap">
+        <img class="discord-avatar" id="discord-avatar-img" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+        <span class="discord-status-dot" id="discord-status-dot"></span>
+      </div>
+      <div class="discord-meta">
+        <div class="discord-display" id="discord-display-name">Ładowanie...</div>
+        <div class="discord-handle" id="discord-handle-name">@...</div>
+        <div class="discord-status">
+          <span id="modal-status">Offline</span>
+        </div>
+      </div>
     </div>
-  </div>
-  <button class="cart-buy-btn" id="cart-buy-btn">Kup Wybrane</button>
-</div>
 
-<!-- MODAL INFORMACYJNY (i) -->
-<div class="modal-overlay" id="info-modal">
-  <div class="modal-box">
-    <button class="modal-close" id="info-close-btn">×</button>
-    <div class="modal-title">Dostępna Pula V-Dolców</div>
-    <p style="font-size:0.88rem; color:var(--text-dim); margin: 1rem 0 1.5rem; line-height:1.6;">
-      Tyle V-Dolców ma aktualnie właściciel sklepu. Możesz zaznaczać skiny/przedmioty z listy do momentu, aż nie przekroczysz tej puli!
-    </p>
-    <button class="modal-btn primary" id="info-ok-btn">Zamknij</button>
-  </div>
-</div>
+    <div class="modal-buttons">
+      <a class="modal-btn primary" id="open-discord-btn" href="https://discordapp.com/users/1486455625952264362" target="_blank" rel="noopener">
+        <span id="open-btn-text">Otwórz Profil Discord</span>
+      </a>
+      <button class="modal-btn secondary" id="copy-btn">
+        <span id="copy-btn-text">Kopiuj Link</span>
+      </button>
+    </div>
 
-<!-- MODAL PODSUMOWANIA (DISCORD) -->
-<div class="modal-overlay" id="checkout-modal">
-  <div class="modal-box">
-    <button class="modal-close" id="checkout-close-btn">×</button>
-    <div class="modal-title">Twoje Zamówienie</div>
-    <div class="modal-sub">Napisz do mnie na Discordzie, aby odebrać gift!</div>
-
-    <div class="cart-summary-list" id="cart-summary-list"></div>
-
-    <button class="modal-btn primary" id="send-discord-btn">Wyślij na Discordzie</button>
-    <button class="modal-btn secondary" id="copy-summary-btn">Kopiuj treść zamówienia</button>
+    <p class="modal-hint" id="modal-hint">Kliknij powyżej, aby przejść do profilu na Discordzie.</p>
   </div>
 </div>
 
 <script>
-// Canvas gwiazd
+// ═══════════════════════════════════════════════
+//  CANVAS — gwiazdy
+// ═══════════════════════════════════════════════
 try {
   const canvas = document.getElementById('galaxy-canvas');
   const ctx = canvas.getContext('2d');
   let stars = [];
+
   function buildStars() {
+    const count = Math.floor((innerWidth * innerHeight) / 7000);
     stars = [];
-    for (let i = 0; i < Math.floor((innerWidth * innerHeight) / 7000); i++) {
-      stars.push({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.5 + 0.3, a: Math.random() * 0.5 + 0.2, speed: Math.random() * 0.01 + 0.003 });
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * innerWidth,
+        y: Math.random() * innerHeight,
+        r: Math.random() * 1.6 + 0.3,
+        baseA: Math.random() * 0.55 + 0.2,
+        speed: Math.random() * 0.015 + 0.003,
+        phase: Math.random() * Math.PI * 2,
+        hue: Math.random() < 0.15 ? (Math.random() < 0.5 ? 200 : 280) : 0,
+        drift: (Math.random() - 0.5) * 0.06
+      });
     }
   }
+
+  function resize() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    buildStars();
+  }
+
   function draw(t) {
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for (const s of stars) {
-      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${s.a * (0.5 + Math.sin(t * s.speed) * 0.5)})`; ctx.fill();
+      const twinkle = Math.sin(t * s.speed + s.phase) * 0.5 + 0.5;
+      const alpha = s.baseA * (0.4 + twinkle * 0.6);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      if (s.hue) {
+        ctx.fillStyle = `hsl(${s.hue}, 85%, 78%)`;
+        ctx.globalAlpha = alpha;
+      } else {
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.globalAlpha = 1;
+      }
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      s.x += s.drift;
+      if (s.x > innerWidth + 5) s.x = -5;
+      if (s.x < -5) s.x = innerWidth + 5;
     }
     requestAnimationFrame(draw);
   }
-  addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; buildStars(); });
-  canvas.width = innerWidth; canvas.height = innerHeight; buildStars(); requestAnimationFrame(draw);
-} catch(e){}
 
-// CONFIG
+  addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(draw);
+} catch (e) {
+  console.error('Canvas error:', e);
+}
+
+// ═══════════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════════
+const API_KEY = 'b47b9df9-def4-4d66-b9a7-05f548f6f0b2';
 const DISCOUNT = 0.55;
-const PLN_VB_RATE = 0.0462375;
+const POLL_INTERVAL = 90_000;
 const DISCORD_USER_ID = '1486455625952264362';
+const DISCORD_LINK = `https://discordapp.com/users/${DISCORD_USER_ID}`;
+const PLN_VB_RATE = 0.0462375;
 
-let maxVbucksPool = 0;
-let cart = [];
-let allShopItems = [];
+const I18N = {
+  pl: {
+    subtitle:    'Dzisiejszy sklep · 55% wartości',
+    nextRotation:'Następna rotacja:',
+    refresh:     'Odśwież',
+    loading:     'Pobieranie sklepu…',
+    shopFrom:    'Sklep z',
+    todayShop:   'Dzisiejszy sklep',
+    buy:         'Kup',
+    items:       'przedmiotów',
+    modalTitle:  'Kup przedmiot',
+    modalSub:    'Napisz do mnie na Discordzie po zakupie',
+    copyUser:    'Kopiuj Link',
+    copied:      'Skopiowano!',
+    openDiscord: 'Otwórz Profil Discord',
+    modalHint:   'Kliknij powyżej, aby przejść do profilu na Discordzie.',
+    footer:      'Ceny = 55% wartości · zaokrąglone w PLN'
+  },
+  en: {
+    subtitle:    'Today\'s shop · 55% of value',
+    nextRotation:'Next rotation:',
+    refresh:     'Refresh',
+    loading:     'Loading shop…',
+    shopFrom:    'Shop from',
+    todayShop:   'Today\'s shop',
+    buy:         'Buy',
+    items:       'items',
+    modalTitle:  'Buy item',
+    modalSub:    'Message me on Discord after purchase',
+    copyUser:    'Copy Link',
+    copied:      'Copied!',
+    openDiscord: 'Open Discord Profile',
+    modalHint:   'Click above to open the Discord profile.',
+    footer:      'Prices = 55% of value · rounded in PLN'
+  }
+};
 
-// DOM
-const $vbucksPoolVal = document.getElementById('vbucks-pool-val');
-const $cartBar = document.getElementById('cart-bar');
-const $cartCount = document.getElementById('cart-count');
-const $cartVbucks = document.getElementById('cart-vbucks');
-const $cartPln = document.getElementById('cart-pln');
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let LANG = localStorage.getItem('bf_lang') || 'pl';
+let lastHash = null;
+let cachedItems = null;
+let cachedDate = null;
 
-function roundPLN(amount) { return Math.max(5, Math.round(amount / 5) * 5); }
-function priceFinal(vb) { return roundPLN(vb * PLN_VB_RATE * DISCOUNT); }
+const t = () => I18N[LANG] || I18N.pl;
 
-// 1. ODCZYT V-DOLCÓW Z PLIKU JSON
-async function fetchVbucksPool() {
+// ═══════════════════════════════════════════════
+//  HELPERS (PRZELICZANIE PLN)
+// ═══════════════════════════════════════════════
+function roundPLN(amount) {
+  return Math.max(5, Math.round(amount / 5) * 5);
+}
+
+function fmtPrice(amount) {
+  return `${amount} zł`;
+}
+
+const priceOriginal = vb => roundPLN(vb * PLN_VB_RATE);
+const priceFinal    = vb => roundPLN(vb * PLN_VB_RATE * DISCOUNT);
+
+const RARITY_COLOR = {
+  common:'#b0b0b0', uncommon:'#00c853', rare:'#2979ff', epic:'#aa00ff',
+  legendary:'#ff9100', mythic:'#ffd600', exotic:'#ff6d00', frozen:'#80d8ff',
+  lava:'#ff3d00', shadow:'#616161', slurp:'#00e5ff', dark:'#5e35b1',
+  starwars:'#ffee58', marvel:'#e53935', dc:'#1e88e5', icon:'#00bcd4',
+  gaminglegends:'#ff4081'
+};
+const rarityColor = r => RARITY_COLOR[(r || '').toLowerCase()] || '#7b5cff';
+
+// ═══════════════════════════════════════════════
+//  DOM
+// ═══════════════════════════════════════════════
+const $grid          = document.getElementById('shop-grid');
+const $dot           = document.getElementById('status-dot');
+const $statusText    = document.getElementById('status-text');
+const $errorBox      = document.getElementById('error-box');
+const $errorTitle    = document.getElementById('error-title');
+const $errorDetail   = document.getElementById('error-detail');
+const $refreshBtn    = document.getElementById('refresh-btn');
+const $shopDate      = document.getElementById('shop-date');
+const $subtitle      = document.getElementById('subtitle');
+const $countdownLbl  = document.getElementById('countdown-label');
+const $countdown     = document.getElementById('countdown');
+const $modal         = document.getElementById('modal');
+const $modalCloseBtn = document.getElementById('modal-close-btn');
+const $copyBtn       = document.getElementById('copy-btn');
+const $copyBtnText   = document.getElementById('copy-btn-text');
+const $openBtnText   = document.getElementById('open-btn-text');
+const $modalTitle    = document.getElementById('modal-title');
+const $modalSub      = document.getElementById('modal-sub');
+const $modalStatus   = document.getElementById('modal-status');
+const $modalHint     = document.getElementById('modal-hint');
+const $footerText    = document.getElementById('footer-text');
+
+// Discord elements
+const $discordAvatar = document.getElementById('discord-avatar-img');
+const $discordDot    = document.getElementById('discord-status-dot');
+const $discordDisplay= document.getElementById('discord-display-name');
+const $discordHandle = document.getElementById('discord-handle-name');
+
+// ═══════════════════════════════════════════════
+//  LANYARD DISCORD API
+// ═══════════════════════════════════════════════
+async function fetchDiscordProfile() {
   try {
-    const res = await fetch('available_vbucks.json?t=' + Date.now());
-    if (!res.ok) throw new Error();
+    const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
     const data = await res.json();
-    maxVbucksPool = data.vbucks || 0;
-    $vbucksPoolVal.textContent = maxVbucksPool.toLocaleString() + ' VB';
-  } catch (e) {
-    $vbucksPoolVal.textContent = 'Błąd JSON';
-    console.error('Nie można wczytać pliku available_vbucks.json');
+
+    if (data.success && data.data) {
+      const u = data.data.discord_user;
+      const status = data.data.discord_status || 'offline';
+
+      $discordDisplay.textContent = u.global_name || u.username;
+      $discordHandle.textContent = `@${u.username}`;
+
+      if (u.avatar) {
+        $discordAvatar.src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.${u.avatar.startsWith('a_') ? 'gif' : 'png'}?size=128`;
+      } else {
+        $discordAvatar.src = `https://cdn.discordapp.com/embed/avatars/${parseInt(u.discriminator || 0) % 5}.png`;
+      }
+
+      $discordDot.className = `discord-status-dot ${status}`;
+      const statusTextMap = {
+        online: 'Dostępny (Online)',
+        idle: 'Zaraz wracam (Idle)',
+        dnd: 'Nie przeszkadzać (DND)',
+        offline: 'Niedostępny (Offline)'
+      };
+      $modalStatus.textContent = statusTextMap[status] || 'Offline';
+    } else {
+      fallbackDiscordProfile();
+    }
+  } catch (err) {
+    console.warn('[LANYARD] Błąd pobierania danych z API:', err);
+    fallbackDiscordProfile();
   }
 }
 
-// 2. SKLEP API
-async function loadShop() {
-  await fetchVbucksPool();
-  try {
-    const res = await fetch('https://fortnite-api.com/v2/shop?language=pl');
-    const data = await res.json();
-    const entries = data.data.entries || [];
-    
-    allShopItems = [];
-    const seen = new Set();
+function fallbackDiscordProfile() {
+  $discordDisplay.textContent = 'Profil Discord';$discordHandle.textContent = `ID: ${DISCORD_USER_ID}`;
+  $modalStatus.textContent = 'Sprawdź profil';
+  $discordDot.className = 'discord-status-dot offline';
+}
 
-    entries.forEach(entry => {
-      const items = entry.items || entry.brItems || [];
-      items.forEach(ci => {
-        if (!ci.id || seen.has(ci.id)) return;
-        seen.add(ci.id);
-        const vb = entry.finalPrice || entry.regularPrice || 0;
-        if (vb > 0) {
-          allShopItems.push({
-            id: ci.id,
-            name: ci.name,
-            type: ci.type?.displayValue || 'Przedmiot',
-            rarity: ci.rarity?.displayValue || 'Common',
-            vbucks: vb,
-            image: ci.images?.icon || ci.images?.featured || ''
-          });
-        }
-      });
-    });
+// ═══════════════════════════════════════════════
+//  TRANSLATIONS
+// ═══════════════════════════════════════════════
+function applyTranslations() {
+  const T = t();
+  $subtitle.textContent = T.subtitle;
+  $countdownLbl.textContent = T.nextRotation;
+  $refreshBtn.textContent = T.refresh;
+  $modalTitle.textContent = T.modalTitle;
+  $modalSub.textContent = T.modalSub;
+  $copyBtnText.textContent = T.copyUser;
+  $openBtnText.textContent = T.openDiscord;
+  $modalHint.textContent = T.modalHint;
+  $footerText.textContent = T.footer;
+  document.documentElement.lang = LANG;
+  if (cachedDate) updateShopDate(cachedDate);
+  else $shopDate.textContent = T.todayShop;
+}
 
-    renderGrid();
-    document.getElementById('status-dot').className = 'dot';
-    document.getElementById('status-text').textContent = `OK · ${allShopItems.length} przedmiotów`;
-  } catch (e) {
-    document.getElementById('status-dot').className = 'dot error';
-    document.getElementById('status-text').textContent = 'Błąd pobierania sklepu';
+function updateShopDate(rawDate) {
+  const T = t();
+  if (!rawDate) { $shopDate.textContent = T.todayShop; return; }
+  const d = new Date(rawDate);
+  const locale = LANG === 'pl' ? 'pl-PL' : 'en-US';
+  $shopDate.textContent = T.shopFrom + ' ' + d.toLocaleString(locale, {
+    dateStyle: 'full', timeStyle: 'short'
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  TOGGLES
+// ═══════════════════════════════════════════════
+document.querySelectorAll('[data-lang]').forEach(el => {
+  el.addEventListener('click', () => {
+    LANG = el.dataset.lang;
+    localStorage.setItem('bf_lang', LANG);
+    document.querySelectorAll('[data-lang]').forEach(x =>
+      x.classList.toggle('active', x.dataset.lang === LANG));
+    applyTranslations();
+    loadShop(false);
+  });
+});
+
+document.querySelectorAll('[data-lang]').forEach(x =>
+  x.classList.toggle('active', x.dataset.lang === LANG));
+
+// ═══════════════════════════════════════════════
+//  COUNTDOWN
+// ═══════════════════════════════════════════════
+function updateCountdown() {
+  const now = new Date();
+  const next = new Date(Date.UTC(
+    now.getUTCFullYear(), now.getUTCMonth(),
+    now.getUTCDate() + 1, 0, 0, 0
+  ));
+  const diff = Math.max(0, Math.floor((next - now) / 1000));
+  const hh = String(Math.floor(diff / 3600)).padStart(2, '0');
+  const mm = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
+  const ss = String(diff % 60).padStart(2, '0');
+  $countdown.textContent = `${hh}:${mm}:${ss}`;
+}
+
+// ═══════════════════════════════════════════════
+//  UI STATE
+// ═══════════════════════════════════════════════
+function setStatus(state, text) {
+  $dot.className = 'dot ' + state;
+  $statusText.textContent = text;
+}
+
+function showSkeletons(n) {
+  $grid.innerHTML = '';
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('div');
+    s.className = 'skeleton';
+    $grid.appendChild(s);
   }
 }
 
-// RENDEROWANIE PRZEDMIOTÓW
-function renderGrid() {
-  const $grid = document.getElementById('shop-grid');$grid.innerHTML = '';
+function showError(title, detail) {
+  $errorTitle.textContent = title;
+  $errorDetail.textContent = detail;
+  $errorBox.classList.add('visible');
+  console.error('[BOOSCIK]', title, detail);
+}
 
-  const currentCartVbucks = cart.reduce((sum, item) => sum + item.vbucks, 0);
+function hideError() { $errorBox.classList.remove('visible'); }
 
-  allShopItems.forEach(item => {
-    const isSelected = cart.some(c => c.id === item.id);
-    const pln = priceFinal(item.vbucks);
-    const wouldExceed = (currentCartVbucks + item.vbucks) > maxVbucksPool;
+// ═══════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════
+function renderItems(items, isUpdate) {
+  const T = t();
+  $grid.innerHTML = '';
+  hideError();
 
+  items.forEach((item, idx) => {
     const card = document.createElement('div');
-    card.className = `card ${isSelected ? 'selected' : ''}`;
+    card.className = 'card';
+    card.style.animationDelay = (idx * 0.03) + 's';
+
+    const rc = rarityColor(item.rarity);
+    const img = item.image || 'https://fortnite-api.com/images/cosmetics/br/cid_028_athena_commando_f.png';
+    const orig = fmtPrice(priceOriginal(item.vbucks));
+    const final = fmtPrice(priceFinal(item.vbucks));
+
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img src="${item.image}" alt="${item.name}" loading="lazy">
-        <span class="card-rarity">${item.rarity}</span>
-        <span class="card-vbucks-tag">
-          <img src="https://fortnite-api.com/images/vbuck.png" width="14"> ${item.vbucks}
-        </span>
+        <img src="${img}" alt="${item.name}" loading="lazy"
+             onerror="this.onerror=null;this.src='https://fortnite-api.com/images/cosmetics/br/cid_028_athena_commando_f.png'">
+        <span class="card-rarity" style="color:${rc};border-color:${rc}44;">${item.rarity || '—'}</span>
+        <span class="card-discount-tag">-45%</span>
       </div>
       <div class="card-body">
-        <div class="card-name">${item.name}</div>
-        <div class="card-type">${item.type}</div>
+        <div class="card-name" title="${item.name}">${item.name}</div>
+        <div class="card-type">${item.type || 'Cosmetic'}</div>
         <div class="card-footer">
-          <span class="price-pln">${pln} zł</span>
-          <button class="select-btn ${isSelected ? 'active' : ''}" 
-            ${!isSelected && wouldExceed ? 'disabled' : ''} 
-            onclick="toggleCart('${item.id}')">
-            ${isSelected ? 'Usuń' : (wouldExceed ? 'Brak VB' : 'Wybierz')}
-          </button>
+          <div class="price-col">
+            <span class="price-old">${orig}</span>
+            <span class="price-pln">${final}</span>
+          </div>
+          <button class="buy-btn" data-name="${item.name}">${T.buy}</button>
         </div>
-      </div>
-    `;
+      </div>`;
+
     $grid.appendChild(card);
   });
 
-  updateCartBar();
-}
-
-// KOSZYK LOGIKA
-function toggleCart(id) {
-  const item = allShopItems.find(i => i.id === id);
-  if (!item) return;
-
-  const idx = cart.findIndex(c => c.id === id);
-  if (idx > -1) {
-    cart.splice(idx, 1);
-  } else {
-    cart.push(item);
-  }
-  renderGrid();
-}
-
-function updateCartBar() {
-  const totalVbucks = cart.reduce((s, i) => s + i.vbucks, 0);
-  const totalPln = cart.reduce((s, i) => s + priceFinal(i.vbucks), 0);
-
-  $cartCount.textContent = cart.length;
-  $cartVbucks.textContent = `${totalVbucks} VB`;
-  $cartPln.textContent = `${totalPln} zł`;
-
-  if (cart.length > 0) {
-    $cartBar.classList.add('visible');
-  } else {
-    $cartBar.classList.remove('visible');
-  }
-}
-
-// MODALE
-document.getElementById('vbucks-info-btn').onclick = () => document.getElementById('info-modal').classList.add('open');
-document.getElementById('info-close-btn').onclick = () => document.getElementById('info-modal').classList.remove('open');
-document.getElementById('info-ok-btn').onclick = () => document.getElementById('info-modal').classList.remove('open');
-
-document.getElementById('cart-buy-btn').onclick = () => {
-  const $list = document.getElementById('cart-summary-list');$list.innerHTML = '';
-  cart.forEach(i => {
-    $list.innerHTML += `<div class="cart-summary-item"><span>${i.name}</span><strong>${priceFinal(i.vbucks)} zł (${i.vbucks} VB)</strong></div>`;
+  $grid.querySelectorAll('.buy-btn').forEach(btn => {
+    btn.addEventListener('click', () => openModal(btn.dataset.name));
   });
-  document.getElementById('checkout-modal').classList.add('open');
-};
 
-document.getElementById('checkout-close-btn').onclick = () => document.getElementById('checkout-modal').classList.remove('open');
-
-// PRZYCISKI MODALU CHKEOUT
-document.getElementById('copy-summary-btn').onclick = () => {
-  const text = getOrderText();
-  navigator.clipboard.writeText(text);
-  alert('Skopiowano treść zamówienia!');
-};
-
-document.getElementById('send-discord-btn').onclick = () => {
-  window.open(`https://discordapp.com/users/${DISCORD_USER_ID}`, '_blank');
-};
-
-function getOrderText() {
-  let text = "Cześć! Chcę kupić następujące przedmioty z Twojego sklepu:\n";
-  cart.forEach(i => {
-    text += `- ${i.name} (${i.vbucks} VB) -> ${priceFinal(i.vbucks)} zł\n`;
-  });
-  const totalVbucks = cart.reduce((s, i) => s + i.vbucks, 0);
-  const totalPln = cart.reduce((s, i) => s + priceFinal(i.vbucks), 0);
-  text += `\nŁącznie: ${totalVbucks} VB | Do zapłaty: ${totalPln} zł`;
-  return text;
+  const tag = isUpdate ? ' 🔄' : '';
+  setStatus(isUpdate ? 'changed' : '', `OK · ${items.length} ${T.items}${tag}`);
 }
 
-// START
-loadShop();
+// ═══════════════════════════════════════════════
+//  MODAL
+// ═══════════════════════════════════════════════
+function openModal(itemName) {
+  const T = t();
+  $modalTitle.textContent = itemName ? `${T.modalTitle}: ${itemName}` : T.modalTitle;
+  $modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  fetchDiscordProfile();
+}
+
+function closeModal() {
+  $modal.classList.remove('open');
+  document.body.style.overflow = '';
+  $copyBtn.classList.remove('copied');$copyBtnText.textContent = t().copyUser;
+}
+
+$modalCloseBtn.addEventListener('click', closeModal);$modal.addEventListener('click', e => {
+  if (e.target === $modal) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+$copyBtn.addEventListener('click', async () => {
+  const T = t();
+  try {
+    await navigator.clipboard.writeText(DISCORD_LINK);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = DISCORD_LINK;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  $copyBtn.classList.add('copied');$copyBtnText.textContent = T.copied;
+  setTimeout(() => {
+    $copyBtn.classList.remove('copied');$copyBtnText.textContent = T.copyUser;
+  }, 2000);
+});
+
+// ═══════════════════════════════════════════════
+//  PARSING
+// ═══════════════════════════════════════════════
+function extractItems(data) {
+  if (!data) return [];
+  const items = [];
+  const seen = new Set();
+
+  function processEntries(entries) {
+    if (!Array.isArray(entries)) return;
+    for (const entry of entries) {
+      const entryItems = entry.items || entry.brItems || [];
+      if (!Array.isArray(entryItems)) continue;
+      for (const ci of entryItems) {
+        const cosmetic = ci.item || ci;
+        const id = cosmetic.id || ci.id;
+        if (!id || seen.has(id)) continue;
+        seen.add(id);
+
+        const vb = entry.finalPrice ?? entry.regularPrice ?? cosmetic.price ?? ci.price ?? 0;
+        if (!vb || vb <= 0) continue;
+
+        const images = cosmetic.images || ci.images || {};
+        items.push({
+          name: cosmetic.name || ci.name || 'Unknown',
+          type: cosmetic.type?.displayValue || cosmetic.type?.value || 'Cosmetic',
+          rarity: cosmetic.rarity?.displayValue || cosmetic.rarity?.value || 'Common',
+          vbucks: vb,
+          image: images.icon || images.featured || images.smallIcon || images.large || ''
+        });
+      }
+    }
+  }
+
+  if (Array.isArray(data.entries)) {
+    processEntries(data.entries);
+  }
+
+  if (!items.length) {
+    for (const key of ['featured', 'daily', 'specialFeatured', 'specialDaily', 'votes']) {
+      const sec = data[key];
+      if (!sec) continue;
+      if (Array.isArray(sec.entries)) processEntries(sec.entries);
+      else if (Array.isArray(sec)) processEntries(sec);
+    }
+  }
+
+  return items;
+}
+
+// ═══════════════════════════════════════════════
+//  LOAD SHOP
+// ═══════════════════════════════════════════════
+async function loadShop(silent) {
+  silent = !!silent;
+  const T = t();
+  const apiUrl = 'https://fortnite-api.com/v2/shop?language=' + LANG;
+
+  if (!silent) {
+    $refreshBtn.disabled = true;
+    setStatus('loading', T.loading);
+    hideError();
+    showSkeletons(12);
+  }
+
+  let res, text;
+  try {
+    res = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': API_KEY,
+        'Accept': 'application/json'
+      },
+      cache: 'no-store'
+    });
+  } catch (e) {
+    if (!silent) {
+      setStatus('error', 'Fetch failed');
+      showError('Nie można połączyć się z API', 'Błąd: ' + e.message);
+      $grid.innerHTML = '';
+    }
+    $refreshBtn.disabled = false;
+    return;
+  }
+
+  try {
+    text = await res.text();
+  } catch (e) {
+    if (!silent) {
+      setStatus('error', 'Read failed');
+      showError('Nie można odczytać odpowiedzi', String(e));
+      $grid.innerHTML = '';
+    }
+    $refreshBtn.disabled = false;
+    return;
+  }
+
+  if (!res.ok) {
+    if (!silent) {
+      setStatus('error', 'HTTP ' + res.status);
+      showError('API zwróciło HTTP ' + res.status, text.slice(0, 2000));
+      $grid.innerHTML = '';
+    }
+    $refreshBtn.disabled = false;
+    return;
+  }
+
+  let json;
+  try { json = JSON.parse(text); }
+  catch (e) {
+    if (!silent) {
+      setStatus('error', 'Bad JSON');
+      showError('API zwróciło niepoprawny JSON', text.slice(0, 2000));
+      $grid.innerHTML = '';
+    }
+    $refreshBtn.disabled = false;
+    return;
+  }
+
+  const data = json && json.data;
+  const shopHash = data && data.hash;
+  const shopDate = data && data.date;
+
+  if (silent && lastHash && shopHash === lastHash) {
+    $refreshBtn.disabled = false;
+    return;
+  }
+
+  const isUpdate = !!(lastHash && shopHash && shopHash !== lastHash);
+  if (shopHash) lastHash = shopHash;
+
+  const items = extractItems(data);
+
+  if (!items.length) {
+    if (!silent) {
+      setStatus('error', 'No items');
+      showError('Nie udało się wyciągnąć itemów', JSON.stringify(data, null, 2).slice(0, 3000));
+      $grid.innerHTML = '';
+    }
+    $refreshBtn.disabled = false;
+    return;
+  }
+
+  items.sort((a, b) => b.vbucks - a.vbucks);
+  cachedItems = items;
+  cachedDate = shopDate;
+
+  updateShopDate(shopDate);
+  renderItems(items, isUpdate);
+  $refreshBtn.disabled = false;
+}
+
+$refreshBtn.addEventListener('click', () => loadShop(false));
+
+// ═══════════════════════════════════════════════
+//  BOOT
+// ═══════════════════════════════════════════════
+applyTranslations();
+loadShop(false);
+updateCountdown();
+setInterval(updateCountdown, 1000);
+setInterval(() => loadShop(true), POLL_INTERVAL);
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) loadShop(true);
+});
 </script>
 </body>
 </html>
