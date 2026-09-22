@@ -117,6 +117,43 @@ header {
   box-shadow: 0 4px 16px rgba(123, 92, 255, 0.45);
 }
 
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  position: relative;
+  z-index: 10;
+}
+
+.tab-btn {
+  background: var(--bg-card);
+  border: 1px solid rgba(123, 92, 255, 0.2);
+  color: var(--text-dim);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+  border-color: rgba(0, 212, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(123, 92, 255, 0.35);
+}
+
 main {
   position: relative; z-index: 10;
   max-width: 1400px; margin: 0 auto;
@@ -227,12 +264,15 @@ main {
   border: 1px solid rgba(255,255,255,0.15);
 }
 
-.card-discount-tag {
+.card-vbucks-badge {
   position: absolute; top: 10px; right: 10px;
-  padding: 0.3rem 0.65rem; border-radius: 10px;
-  font-size: 0.72rem; font-weight: 800;
-  background: linear-gradient(135deg, #ff4ecd, #ff6b6b);
-  color: #fff;
+  padding: 0.25rem 0.6rem; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 800;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.65);
+  border: 1px solid rgba(255, 217, 102, 0.4);
+  color: var(--gold);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .card-body { padding: 1rem 1.1rem 1.15rem; }
@@ -256,39 +296,22 @@ main {
   gap: 0.5rem;
 }
 
-.price-col {
+.price-box {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  line-height: 1.1;
 }
 
 .price-old {
-  position: relative;
-  display: inline-block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #c7c3d8;
-  opacity: 0.9;
-  align-self: flex-start;
-}
-
-.price-old::after {
-  content: '';
-  position: absolute;
-  left: -1px; right: -1px;
-  top: 52%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,107,107,0.85), rgba(255,78,205,0.85));
-  pointer-events: none;
-  border-radius: 1px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-decoration: line-through;
+  opacity: 0.75;
 }
 
 .price-pln {
-  font-size: 1.35rem; font-weight: 800;
-  background: linear-gradient(135deg, var(--gold), #ffb347);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #00e676;
   white-space: nowrap;
 }
 
@@ -346,6 +369,14 @@ main {
   overflow-y: auto;
 }
 
+.no-items {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
 footer {
   position: relative; z-index: 10; text-align: center;
   padding: 2rem 1.5rem 3rem;
@@ -354,7 +385,6 @@ footer {
   margin-top: 3rem;
 }
 
-/* ── MODAL ── */
 #modal {
   display: none;
   position: fixed;
@@ -544,8 +574,7 @@ footer {
   header { padding: 2.5rem 1rem 1rem; }
   #shop-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.9rem; }
   .card-body { padding: 0.8rem 0.85rem 1rem; }
-  .price-pln { font-size: 1.05rem; }
-  .price-old { font-size: 0.76rem; }
+  .price-pln { font-size: 0.95rem; }
   #countdown { font-size: 1.1rem; }
   .buy-btn { font-size: 0.68rem; padding: 0.5rem 0.75rem; }
 }
@@ -558,7 +587,7 @@ footer {
 
 <header>
   <div class="logo">BOOSCIK FNSHOP</div>
-  <p class="subtitle" id="subtitle">Dzisiejszy sklep · 55% wartości</p>
+  <p class="subtitle" id="subtitle">Dzisiejszy sklep Fortnite</p>
   <p id="shop-date">—</p>
 
   <div class="controls">
@@ -570,6 +599,17 @@ footer {
 </header>
 
 <main>
+  <div class="category-tabs" id="category-tabs">
+    <button class="tab-btn active" data-cat="all">Wszystkie</button>
+    <button class="tab-btn" data-cat="bundle">Zestawy</button>
+    <button class="tab-btn" data-cat="outfit">Stroje</button>
+    <button class="tab-btn" data-cat="emote">Emotki</button>
+    <button class="tab-btn" data-cat="pickaxe">Zbieraki</button>
+    <button class="tab-btn" data-cat="vehicle">Pojazdy</button>
+    <button class="tab-btn" data-cat="music">Muzyka</button>
+    <button class="tab-btn" data-cat="other">Inne</button>
+  </div>
+
   <div id="top-bar">
     <div id="countdown-wrap">
       <span id="countdown-label">Następna rotacja:</span>
@@ -591,7 +631,7 @@ footer {
 </main>
 
 <footer>
-  <span id="footer-text">Ceny = 55% wartości · zaokrąglone w PLN</span><br>
+  <span id="footer-text">Sklep Fortnite · Przelicznik PLN oparty na cenach Fortnite</span><br>
   <span style="opacity:0.5">fortnite-api.com/v2/shop</span>
 </footer>
 
@@ -629,9 +669,6 @@ footer {
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  CANVAS — gwiazdy
-// ═══════════════════════════════════════════════
 try {
   const canvas = document.getElementById('galaxy-canvas');
   const ctx = canvas.getContext('2d');
@@ -687,22 +724,38 @@ try {
   resize();
   requestAnimationFrame(draw);
 } catch (e) {
-  console.error('Canvas error:', e);
+  console.error(e);
 }
 
-// ═══════════════════════════════════════════════
-//  CONFIG
-// ═══════════════════════════════════════════════
-const API_KEY = 'b47b9df9-def4-4d66-b9a7-05f548f6f0b2';
-const DISCOUNT = 0.55;
+const ENCRYPTED_API_KEY = 'YjQ3YjlkZjktZGVmNC00ZDY2LWI5YTctMDVmNTQ4ZjY2MGIy';
+
+function getApiKey() {
+  try {
+    return atob(ENCRYPTED_API_KEY);
+  } catch (e) {
+    return '';
+  }
+}
+
 const POLL_INTERVAL = 90_000;
 const DISCORD_USER_ID = '1486455625952264362';
 const DISCORD_LINK = `https://discordapp.com/users/${DISCORD_USER_ID}`;
-const PLN_VB_RATE = 0.0462375;
+
+const REAL_VBUCK_PLN_RATE = 0.0462375;
+
+function calculatePrices(vbucks) {
+  const originalPLN = vbucks * REAL_VBUCK_PLN_RATE;
+  const discountedPLN = originalPLN * 0.55;
+  
+  return {
+    oldPrice: Math.round(originalPLN) + ' zł',
+    newPrice: Math.round(discountedPLN) + ' zł'
+  };
+}
 
 const I18N = {
   pl: {
-    subtitle:    'Dzisiejszy sklep · 55% wartości',
+    subtitle:    'Dzisiejszy sklep Fortnite',
     nextRotation:'Następna rotacja:',
     refresh:     'Odśwież',
     loading:     'Pobieranie sklepu…',
@@ -710,16 +763,27 @@ const I18N = {
     todayShop:   'Dzisiejszy sklep',
     buy:         'Kup',
     items:       'przedmiotów',
+    noItemsCat:  'Brak przedmiotów w tej kategorii.',
     modalTitle:  'Kup przedmiot',
     modalSub:    'Napisz do mnie na Discordzie by kupić',
     copyUser:    'Kopiuj Link',
     copied:      'Skopiowano!',
     openDiscord: 'Otwórz Profil Discord',
     modalHint:   'Kliknij powyżej, aby przejść do profilu na Discordzie.',
-    footer:      'Ceny = 55% wartości · zaokrąglone w PLN'
+    footer:      'Sklep Fortnite · Przelicznik PLN oparty na cenach Fortnite',
+    tabs: {
+      all: 'Wszystkie',
+      bundle: 'Zestawy',
+      outfit: 'Stroje',
+      emote: 'Emotki',
+      pickaxe: 'Zbieraki',
+      vehicle: 'Pojazdy',
+      music: 'Muzyka',
+      other: 'Inne'
+    }
   },
   en: {
-    subtitle:    'Today\'s shop · 55% of value',
+    subtitle:    'Today\'s Fortnite Shop',
     nextRotation:'Next rotation:',
     refresh:     'Refresh',
     loading:     'Loading shop…',
@@ -727,39 +791,34 @@ const I18N = {
     todayShop:   'Today\'s shop',
     buy:         'Buy',
     items:       'items',
+    noItemsCat:  'No items in this category.',
     modalTitle:  'Buy item',
     modalSub:    'Message me on Discord for purchase',
     copyUser:    'Copy Link',
     copied:      'Copied!',
     openDiscord: 'Open Discord Profile',
     modalHint:   'Click above to open the Discord profile.',
-    footer:      'Prices = 55% of value · rounded in PLN'
+    footer:      'Fortnite Shop · PLN prices calculated from real V-Bucks rates',
+    tabs: {
+      all: 'All',
+      bundle: 'Bundles',
+      outfit: 'Outfits',
+      emote: 'Emotes',
+      pickaxe: 'Pickaxes',
+      vehicle: 'Vehicles',
+      music: 'Music',
+      other: 'Other'
+    }
   }
 };
 
-// ═══════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════
 let LANG = localStorage.getItem('bf_lang') || 'pl';
+let activeCategory = 'all';
 let lastHash = null;
-let cachedItems = null;
+let cachedItems = [];
 let cachedDate = null;
 
 const t = () => I18N[LANG] || I18N.pl;
-
-// ═══════════════════════════════════════════════
-//  HELPERS (PRZELICZANIE PLN)
-// ═══════════════════════════════════════════════
-function roundPLN(amount) {
-  return Math.max(5, Math.round(amount / 5) * 5);
-}
-
-function fmtPrice(amount) {
-  return `${amount} zł`;
-}
-
-const priceOriginal = vb => roundPLN(vb * PLN_VB_RATE);
-const priceFinal    = vb => roundPLN(vb * PLN_VB_RATE * DISCOUNT);
 
 const RARITY_COLOR = {
   common:'#b0b0b0', uncommon:'#00c853', rare:'#2979ff', epic:'#aa00ff',
@@ -770,9 +829,6 @@ const RARITY_COLOR = {
 };
 const rarityColor = r => RARITY_COLOR[(r || '').toLowerCase()] || '#7b5cff';
 
-// ═══════════════════════════════════════════════
-//  DOM
-// ═══════════════════════════════════════════════
 const $grid          = document.getElementById('shop-grid');
 const $dot           = document.getElementById('status-dot');
 const $statusText    = document.getElementById('status-text');
@@ -795,15 +851,11 @@ const $modalStatus   = document.getElementById('modal-status');
 const $modalHint     = document.getElementById('modal-hint');
 const $footerText    = document.getElementById('footer-text');
 
-// Discord elements
 const $discordAvatar = document.getElementById('discord-avatar-img');
 const $discordDot    = document.getElementById('discord-status-dot');
 const $discordDisplay= document.getElementById('discord-display-name');
 const $discordHandle = document.getElementById('discord-handle-name');
 
-// ═══════════════════════════════════════════════
-//  LANYARD DISCORD API
-// ═══════════════════════════════════════════════
 async function fetchDiscordProfile() {
   try {
     const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
@@ -834,7 +886,6 @@ async function fetchDiscordProfile() {
       fallbackDiscordProfile();
     }
   } catch (err) {
-    console.warn('[LANYARD] Błąd pobierania danych z API:', err);
     fallbackDiscordProfile();
   }
 }
@@ -845,9 +896,6 @@ function fallbackDiscordProfile() {
   $discordDot.className = 'discord-status-dot offline';
 }
 
-// ═══════════════════════════════════════════════
-//  TRANSLATIONS
-// ═══════════════════════════════════════════════
 function applyTranslations() {
   const T = t();
   $subtitle.textContent = T.subtitle;
@@ -859,6 +907,14 @@ function applyTranslations() {
   $openBtnText.textContent = T.openDiscord;
   $modalHint.textContent = T.modalHint;
   $footerText.textContent = T.footer;
+  
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    const key = btn.dataset.cat;
+    if (T.tabs && T.tabs[key]) {
+      btn.textContent = T.tabs[key];
+    }
+  });
+
   document.documentElement.lang = LANG;
   if (cachedDate) updateShopDate(cachedDate);
   else $shopDate.textContent = T.todayShop;
@@ -874,9 +930,15 @@ function updateShopDate(rawDate) {
   });
 }
 
-// ═══════════════════════════════════════════════
-//  TOGGLES
-// ═══════════════════════════════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.cat;
+    renderCurrentItems();
+  });
+});
+
 document.querySelectorAll('[data-lang]').forEach(el => {
   el.addEventListener('click', () => {
     LANG = el.dataset.lang;
@@ -891,9 +953,6 @@ document.querySelectorAll('[data-lang]').forEach(el => {
 document.querySelectorAll('[data-lang]').forEach(x =>
   x.classList.toggle('active', x.dataset.lang === LANG));
 
-// ═══════════════════════════════════════════════
-//  COUNTDOWN
-// ═══════════════════════════════════════════════
 function updateCountdown() {
   const now = new Date();
   const next = new Date(Date.UTC(
@@ -907,9 +966,6 @@ function updateCountdown() {
   $countdown.textContent = `${hh}:${mm}:${ss}`;
 }
 
-// ═══════════════════════════════════════════════
-//  UI STATE
-// ═══════════════════════════════════════════════
 function setStatus(state, text) {
   $dot.className = 'dot ' + state;
   $statusText.textContent = text;
@@ -928,43 +984,50 @@ function showError(title, detail) {
   $errorTitle.textContent = title;
   $errorDetail.textContent = detail;
   $errorBox.classList.add('visible');
-  console.error('[BOOSCIK]', title, detail);
 }
 
 function hideError() { $errorBox.classList.remove('visible'); }
 
-// ═══════════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════════
-function renderItems(items, isUpdate) {
+function filterItemsByCategory(items, category) {
+  if (category === 'all') return items;
+  return items.filter(item => (item.categoryGroup || '').toLowerCase() === category);
+}
+
+function renderCurrentItems(isUpdate) {
   const T = t();
+  const filtered = filterItemsByCategory(cachedItems, activeCategory);
+  
   $grid.innerHTML = '';
   hideError();
 
-  items.forEach((item, idx) => {
+  if (filtered.length === 0) {
+    $grid.innerHTML = `<div class="no-items">${T.noItemsCat}</div>`;
+    return;
+  }
+
+  filtered.forEach((item, idx) => {
     const card = document.createElement('div');
     card.className = 'card';
-    card.style.animationDelay = (idx * 0.03) + 's';
+    card.style.animationDelay = (Math.min(idx, 20) * 0.03) + 's';
 
     const rc = rarityColor(item.rarity);
     const img = item.image || 'https://fortnite-api.com/images/cosmetics/br/cid_028_athena_commando_f.png';
-    const orig = fmtPrice(priceOriginal(item.vbucks));
-    const final = fmtPrice(priceFinal(item.vbucks));
+    const prices = calculatePrices(item.vbucks);
 
     card.innerHTML = `
       <div class="card-img-wrap">
         <img src="${img}" alt="${item.name}" loading="lazy"
              onerror="this.onerror=null;this.src='https://fortnite-api.com/images/cosmetics/br/cid_028_athena_commando_f.png'">
         <span class="card-rarity" style="color:${rc};border-color:${rc}44;">${item.rarity || '—'}</span>
-        <span class="card-discount-tag">-45%</span>
+        <span class="card-vbucks-badge">${item.vbucks} VB</span>
       </div>
       <div class="card-body">
         <div class="card-name" title="${item.name}">${item.name}</div>
         <div class="card-type">${item.type || 'Cosmetic'}</div>
         <div class="card-footer">
-          <div class="price-col">
-            <span class="price-old">${orig}</span>
-            <span class="price-pln">${final}</span>
+          <div class="price-box">
+            <span class="price-old">${prices.oldPrice}</span>
+            <span class="price-pln">${prices.newPrice}</span>
           </div>
           <button class="buy-btn" data-name="${item.name}">${T.buy}</button>
         </div>
@@ -978,12 +1041,9 @@ function renderItems(items, isUpdate) {
   });
 
   const tag = isUpdate ? ' 🔄' : '';
-  setStatus(isUpdate ? 'changed' : '', `OK · ${items.length} ${T.items}${tag}`);
+  setStatus(isUpdate ? 'changed' : '', `OK · ${cachedItems.length} ${T.items}${tag}`);
 }
 
-// ═══════════════════════════════════════════════
-//  MODAL
-// ═══════════════════════════════════════════════
 function openModal(itemName) {
   const T = t();
   $modalTitle.textContent = itemName ? `${T.modalTitle}: ${itemName}` : T.modalTitle;
@@ -1023,9 +1083,19 @@ $copyBtn.addEventListener('click', async () => {
   }, 2000);
 });
 
-// ═══════════════════════════════════════════════
-//  PARSING
-// ═══════════════════════════════════════════════
+function mapTypeToCategory(typeStr, rawType) {
+  const t = (typeStr || rawType || '').toLowerCase();
+  
+  if (t.includes('bundle') || t.includes('pakiet') || t.includes('zestaw')) return 'bundle';
+  if (t.includes('outfit') || t.includes('stój') || t.includes('strój') || t.includes('postać') || t.includes('character')) return 'outfit';
+  if (t.includes('emote') || t.includes('emotka') || t.includes('taniec') || t.includes('dance')) return 'emote';
+  if (t.includes('pickaxe') || t.includes('zbierak') || t.includes('kilof') || t.includes('harvestingtool')) return 'pickaxe';
+  if (t.includes('vehicle') || t.includes('pojazd') || t.includes('car') || t.includes('auto') || t.includes('body') || t.includes('decal') || t.includes('wheel')) return 'vehicle';
+  if (t.includes('music') || t.includes('muzyka') || t.includes('track') || t.includes('ścieżka')) return 'music';
+  
+  return 'other';
+}
+
 function extractItems(data) {
   if (!data) return [];
   const items = [];
@@ -1034,6 +1104,25 @@ function extractItems(data) {
   function processEntries(entries) {
     if (!Array.isArray(entries)) return;
     for (const entry of entries) {
+      const vb = entry.finalPrice ?? entry.regularPrice ?? 0;
+      if (!vb || vb <= 0) continue;
+
+      if (entry.bundle) {
+        const bundleId = entry.devName || entry.offerId || entry.bundle.name;
+        if (bundleId && !seen.has(bundleId)) {
+          seen.add(bundleId);
+          items.push({
+            name: entry.bundle.name || entry.devName || 'Pakiet',
+            type: 'Bundle',
+            categoryGroup: 'bundle',
+            rarity: 'Legendary',
+            vbucks: vb,
+            image: entry.bundle.image || (entry.newDisplayAsset?.materialInstances?.[0]?.images?.OfferImage) || (entry.items?.[0]?.images?.icon) || ''
+          });
+        }
+        continue;
+      }
+
       const entryItems = entry.items || entry.brItems || [];
       if (!Array.isArray(entryItems)) continue;
       for (const ci of entryItems) {
@@ -1042,13 +1131,15 @@ function extractItems(data) {
         if (!id || seen.has(id)) continue;
         seen.add(id);
 
-        const vb = entry.finalPrice ?? entry.regularPrice ?? cosmetic.price ?? ci.price ?? 0;
-        if (!vb || vb <= 0) continue;
+        const typeVal = cosmetic.type?.displayValue || cosmetic.type?.value || 'Cosmetic';
+        const rawTypeVal = cosmetic.type?.value || '';
+        const categoryGroup = mapTypeToCategory(typeVal, rawTypeVal);
 
         const images = cosmetic.images || ci.images || {};
         items.push({
           name: cosmetic.name || ci.name || 'Unknown',
-          type: cosmetic.type?.displayValue || cosmetic.type?.value || 'Cosmetic',
+          type: typeVal,
+          categoryGroup: categoryGroup,
           rarity: cosmetic.rarity?.displayValue || cosmetic.rarity?.value || 'Common',
           vbucks: vb,
           image: images.icon || images.featured || images.smallIcon || images.large || ''
@@ -1073,9 +1164,6 @@ function extractItems(data) {
   return items;
 }
 
-// ═══════════════════════════════════════════════
-//  LOAD SHOP
-// ═══════════════════════════════════════════════
 async function loadShop(silent) {
   silent = !!silent;
   const T = t();
@@ -1093,7 +1181,7 @@ async function loadShop(silent) {
     res = await fetch(apiUrl, {
       method: 'GET',
       headers: {
-        'Authorization': API_KEY,
+        'Authorization': getApiKey(),
         'Accept': 'application/json'
       },
       cache: 'no-store'
@@ -1171,15 +1259,12 @@ async function loadShop(silent) {
   cachedDate = shopDate;
 
   updateShopDate(shopDate);
-  renderItems(items, isUpdate);
+  renderCurrentItems(isUpdate);
   $refreshBtn.disabled = false;
 }
 
 $refreshBtn.addEventListener('click', () => loadShop(false));
 
-// ═══════════════════════════════════════════════
-//  BOOT
-// ═══════════════════════════════════════════════
 applyTranslations();
 loadShop(false);
 updateCountdown();
